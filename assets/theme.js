@@ -259,11 +259,23 @@ function initAddToCart() {
 function initWishlist() {
   let wishlist = JSON.parse(localStorage.getItem('nsnz_wishlist') || '[]');
 
+  function updateWishlistBadge() {
+    const badge = document.getElementById('wishlistBadge');
+    if (!badge) return;
+    if (wishlist.length > 0) {
+      badge.textContent = wishlist.length;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
   // Mark active wishlist cards on load
   wishlist.forEach(function (id) {
     const btn = document.querySelector('.card-wishlist[data-id="' + id + '"]');
     if (btn) btn.classList.add('active');
   });
+  updateWishlistBadge();
 
   document.addEventListener('click', function (e) {
     const btn = e.target.closest('.card-wishlist');
@@ -284,6 +296,7 @@ function initWishlist() {
     }
 
     localStorage.setItem('nsnz_wishlist', JSON.stringify(wishlist));
+    updateWishlistBadge();
   });
 }
 
@@ -333,21 +346,41 @@ function initGoalTabs() {
   const tabs = document.querySelectorAll('.goal-tab');
   if (!tabs.length) return;
 
+  function activateGoal(goalName) {
+    tabs.forEach(function (t) {
+      if (t.dataset.goal === goalName) {
+        t.classList.add('active');
+      } else {
+        t.classList.remove('active');
+      }
+    });
+
+    const panels = document.querySelectorAll('.goal-products');
+    panels.forEach(function (p) {
+      p.style.display = p.dataset.goal === goalName ? 'grid' : 'none';
+    });
+  }
+
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
-      tabs.forEach(function (t) { t.classList.remove('active'); });
-      this.classList.add('active');
+      activateGoal(this.dataset.goal);
+    });
+  });
 
-      const goal = this.dataset.goal;
-      const panels = document.querySelectorAll('.goal-products');
-      panels.forEach(function (p) {
-        p.style.display = p.dataset.goal === goal ? 'grid' : 'none';
-      });
+  // Handle header goal links
+  document.querySelectorAll('[data-nav-goal]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      const targetGoal = this.dataset.navGoal;
+      activateGoal(targetGoal);
+      const goalSec = document.getElementById('goal-section');
+      if (goalSec) {
+        goalSec.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   });
 
   // Activate first tab
-  if (tabs[0]) tabs[0].click();
+  if (tabs[0]) activateGoal(tabs[0].dataset.goal);
 }
 
 // ============================================

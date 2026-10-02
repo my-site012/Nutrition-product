@@ -1,67 +1,144 @@
 <header id="site-header">
-  <div class="header-inner">
+  <div class="header-main-row">
+    <div class="header-inner">
+      <div class="header-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fas fa-bars"></i>
+          <span class="menu-text">Menu</span>
+        </button>
 
-    <div class="header-left">
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <i class="fas fa-bars"></i>
-        <span class="menu-text">Shop Now</span>
-      </button>
-    </div>
+        <div class="header-logo">
+          <a href="{{ routes.root_url }}" title="{{ shop.name }}">
+            {%- if settings.logo -%}
+              <img
+                src="{{ settings.logo | image_url: width: 220 }}"
+                alt="{{ shop.name }}"
+                class="logo-img"
+                loading="eager"
+                width="180"
+                height="48"
+              >
+            {%- else -%}
+              <span class="logo-text">NSNZ<span class="logo-dot">.</span><span class="logo-sub">NUTRITION</span></span>
+            {%- endif -%}
+          </a>
+        </div>
+      </div>
 
-    <div class="header-logo">
-      <a href="{{ routes.root_url }}" title="{{ shop.name }}">
-        {%- if settings.logo -%}
-          <img
-            src="{{ settings.logo | image_url: width: 200 }}"
-            alt="{{ shop.name }}"
-            class="logo-img"
-            loading="eager"
-            width="160"
-            height="44"
-          >
-        {%- else -%}
-          <span class="logo-text">{{ shop.name }}</span>
-        {%- endif -%}
-      </a>
-    </div>
+      <div class="header-center">
+        <form class="desktop-search" action="{{ routes.search_url }}" method="get" role="search">
+          <input type="hidden" name="type" value="product">
+          <div class="search-input-wrap">
+            <i class="fas fa-search search-input-icon"></i>
+            <label class="sr-only" for="headerSearch">Search products...</label>
+            <input
+              type="text"
+              id="headerSearch"
+              name="q"
+              placeholder="Search protein, creatine, pre-workout, brands..."
+              autocomplete="off"
+              value="{{ search.terms | escape }}"
+            >
+            <button type="submit" class="search-submit-btn" aria-label="Search">
+              <span>Search</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+          <div class="search-suggestions" id="searchSuggestions" aria-live="polite"></div>
+        </form>
+      </div>
 
-    <div class="header-right">
-      <form class="desktop-search" action="{{ routes.search_url }}" method="get" role="search">
-        <input type="hidden" name="type" value="product">
-        <label class="sr-only" for="headerSearch">Search</label>
-        <input
-          type="text"
-          id="headerSearch"
-          name="q"
-          placeholder="Search products..."
-          autocomplete="off"
-          value="{{ search.terms | escape }}"
-        >
-        <button type="submit" aria-label="Search">
+      <div class="header-right">
+        <div class="header-support d-desktop-only">
+          <i class="fas fa-phone-volume"></i>
+          <div class="support-text">
+            <span class="support-sub">Need Expert Advice?</span>
+            <span class="support-main">0800 000 676</span>
+          </div>
+        </div>
+
+        <button class="header-icon d-mobile-only" id="mobileSearchBtn" title="Search" aria-label="Open search">
           <i class="fas fa-search"></i>
         </button>
-        <div class="search-suggestions" id="searchSuggestions" aria-live="polite"></div>
-      </form>
 
-      <a href="{{ routes.account_url }}" class="header-icon" title="Account" aria-label="Account">
-        <i class="fas fa-user"></i>
-      </a>
+        <a href="{{ routes.account_url }}" class="header-icon" title="Account" aria-label="Account">
+          <i class="fas fa-user"></i>
+        </a>
 
-      <button class="header-icon cart-icon" id="cartToggle" title="Cart" aria-label="Open cart" aria-expanded="false">
-        <i class="fas fa-shopping-bag"></i>
-        {%- if cart.item_count > 0 -%}
-          <span class="cart-count" id="cartCount">{{ cart.item_count }}</span>
-        {%- else -%}
-          <span class="cart-count" id="cartCount" style="display:none">0</span>
-        {%- endif -%}
-      </button>
+        <a href="#wishlist" class="header-icon wishlist-icon" id="wishlistToggle" title="Wishlist" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="wishlist-badge" id="wishlistBadge" style="display:none">0</span>
+        </a>
+
+        <button class="header-icon cart-icon" id="cartToggle" title="Cart" aria-label="Open cart" aria-expanded="false">
+          <div class="cart-icon-wrap">
+            <i class="fas fa-shopping-bag"></i>
+            {%- if cart.item_count > 0 -%}
+              <span class="cart-count" id="cartCount">{{ cart.item_count }}</span>
+            {%- else -%}
+              <span class="cart-count" id="cartCount" style="display:none">0</span>
+            {%- endif -%}
+          </div>
+          <div class="cart-btn-label d-desktop-only">
+            <span class="cart-lbl-text">Cart</span>
+            <span class="cart-lbl-total" id="headerCartTotal">{{ cart.total_price | money }}</span>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
+
+  {%- comment -%} Desktop Category Navigation Bar (SprintFit Style) {%- endcomment -%}
+  <nav class="header-nav-bar d-desktop-only" aria-label="Primary navigation">
+    <div class="nav-bar-inner">
+      <div class="nav-item-category-dropdown">
+        <button class="nav-category-btn" id="categoryDropdownBtn" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+          <span>Shop Categories</span>
+          <i class="fas fa-chevron-down caret-icon"></i>
+        </button>
+        <div class="category-dropdown-menu" id="categoryDropdownMenu">
+          <a href="/collections/protein-powder" class="dropdown-link"><i class="fas fa-dumbbell"></i> Protein Powder</a>
+          <a href="/collections/pre-workout" class="dropdown-link"><i class="fas fa-bolt"></i> Pre-Workout &amp; Pump</a>
+          <a href="/collections/creatine" class="dropdown-link"><i class="fas fa-atom"></i> Creatine Monohydrate</a>
+          <a href="/collections/energy-drinks" class="dropdown-link"><i class="fas fa-fire"></i> Energy Drinks &amp; RTD</a>
+          <a href="/collections/protein-bars" class="dropdown-link"><i class="fas fa-cookie-bite"></i> Protein Bars &amp; Snacks</a>
+          <a href="/collections/weight-loss" class="dropdown-link"><i class="fas fa-flame"></i> Fat Burners &amp; Shred</a>
+          <a href="/collections/amino-acids" class="dropdown-link"><i class="fas fa-dna"></i> BCAAs &amp; EAAs</a>
+          <a href="/collections/vitamins" class="dropdown-link"><i class="fas fa-shield-virus"></i> Vitamins &amp; Wellness</a>
+          <a href="/collections/accessories" class="dropdown-link"><i class="fas fa-bottle-water"></i> Shakers &amp; Gym Gear</a>
+          <a href="/collections/all" class="dropdown-link dropdown-all-link">Browse All 1,000+ Products <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <ul class="desktop-nav-links">
+        <li><a href="/collections/protein-powder">Protein Powder</a></li>
+        <li><a href="/collections/pre-workout">Pre-Workout</a></li>
+        <li><a href="/collections/creatine">Creatine</a></li>
+        <li><a href="/collections/energy-drinks">Energy Drinks</a></li>
+        <li><a href="/collections/protein-bars">Protein Bars</a></li>
+        <li><a href="/collections/weight-loss">Fat Burners</a></li>
+        <li><a href="/collections/accessories">Shakers &amp; Gear</a></li>
+        <li class="has-nav-sub">
+          <a href="#goal-section">Shop By Goal <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-sub-menu">
+            <a href="#goal-section" data-nav-goal="muscle-building">Lean Muscle Growth</a>
+            <a href="#goal-section" data-nav-goal="weight-loss">Weight Loss &amp; Shred</a>
+            <a href="#goal-section" data-nav-goal="energy">Energy &amp; Focus</a>
+            <a href="#goal-section" data-nav-goal="recovery">Fast Muscle Recovery</a>
+            <a href="#goal-section" data-nav-goal="gain-mass">Maximum Size &amp; Mass</a>
+          </div>
+        </li>
+        <li><a href="/collections/top-50" class="nav-badge-link">Top 50</a></li>
+        <li><a href="/collections/specials" class="nav-pill-deal"><i class="fas fa-fire"></i> Specials</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="mobile-search-bar" id="mobileSearchBar">
     <form action="{{ routes.search_url }}" method="get">
       <input type="hidden" name="type" value="product">
-      <input type="text" name="q" placeholder="Search products..." aria-label="Search">
+      <input type="text" name="q" placeholder="Search products, brands..." aria-label="Search">
       <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
     </form>
     <button class="close-search" id="closeSearch" aria-label="Close search">
@@ -73,7 +150,7 @@
 <div class="mobile-menu-overlay" id="menuOverlay"></div>
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
   <div class="mobile-menu-header">
-    <span class="mobile-menu-title">Shop Now</span>
+    <span class="mobile-menu-title">NSNZ NUTRITION</span>
     <button class="close-menu" id="closeMenu" aria-label="Close menu">
       <i class="fas fa-times"></i>
     </button>
@@ -85,62 +162,50 @@
           Sports Supplements <i class="fas fa-plus"></i>
         </span>
         <ul class="sub-menu">
-          <li><a href="/collections/all-sports-supplements">All Sports Supplements</a></li>
+          <li><a href="/collections/all">All Sports Supplements</a></li>
           <li><a href="/collections/protein-powder">Protein Powder</a></li>
           <li><a href="/collections/creatine">Creatine</a></li>
           <li><a href="/collections/pre-workout">Pre Workout</a></li>
           <li><a href="/collections/protein-bars">Protein Bars</a></li>
-          <li><a href="/collections/weight-loss">Weight Loss</a></li>
+          <li><a href="/collections/energy-drinks">Energy Drinks &amp; RTDs</a></li>
+          <li><a href="/collections/weight-loss">Weight Loss &amp; Fat Burners</a></li>
           <li><a href="/collections/amino-acids">Amino Acids &amp; BCAAs</a></li>
-          <li><a href="/collections/hydration-endurance">Hydration &amp; Endurance</a></li>
-          <li><a href="/collections/combos">Combos</a></li>
-          <li><a href="/collections/testosterone-booster">Testosterone Booster</a></li>
+          <li><a href="/collections/accessories">Shakers &amp; Accessories</a></li>
         </ul>
       </li>
       <li><a href="/collections/top-50">Top 50 Supplements</a></li>
       <li class="has-children">
         <span class="nav-parent" role="button" tabindex="0" aria-expanded="false">
-          Natural Health <i class="fas fa-plus"></i>
-        </span>
-        <ul class="sub-menu">
-          <li><a href="/collections/natural-health">All Natural Health</a></li>
-          <li><a href="/collections/vitamins">Vitamins</a></li>
-          <li><a href="/collections/super-greens">Super Greens</a></li>
-          <li><a href="/collections/collagen">Collagen Supplements</a></li>
-          <li><a href="/collections/gut-health">Gut Health</a></li>
-          <li><a href="/collections/minerals">Minerals</a></li>
-          <li><a href="/collections/sleep-support">Sleep Support</a></li>
-        </ul>
-      </li>
-      <li class="has-children">
-        <span class="nav-parent" role="button" tabindex="0" aria-expanded="false">
-          Accessories <i class="fas fa-plus"></i>
-        </span>
-        <ul class="sub-menu">
-          <li><a href="/collections/accessories">All Accessories</a></li>
-          <li><a href="/collections/shakers">Shakers &amp; Water Bottles</a></li>
-          <li><a href="/collections/workout-gear">Workout Gear</a></li>
-          <li><a href="/collections/apparel">Apparel &amp; Clothing</a></li>
-          <li><a href="/collections/blenders">Blenders</a></li>
-        </ul>
-      </li>
-      <li class="has-children">
-        <span class="nav-parent" role="button" tabindex="0" aria-expanded="false">
           Shop by Goal <i class="fas fa-plus"></i>
         </span>
         <ul class="sub-menu">
-          <li><a href="/collections/weight-loss">Weight Loss</a></li>
-          <li><a href="/collections/lean-muscle">Lean Muscle Building</a></li>
-          <li><a href="/collections/gain-mass">Gain Mass</a></li>
-          <li><a href="/collections/recovery">Recovery</a></li>
-          <li><a href="/collections/energy-endurance">Energy &amp; Endurance</a></li>
+          <li><a href="#goal-section">Lean Muscle Building</a></li>
+          <li><a href="#goal-section">Weight Loss &amp; Shred</a></li>
+          <li><a href="#goal-section">Extreme Energy &amp; Focus</a></li>
+          <li><a href="#goal-section">Muscle Recovery</a></li>
+          <li><a href="#goal-section">Mass &amp; Size Gaining</a></li>
         </ul>
       </li>
-      <li><a href="/collections/specials" class="highlight-red">Special Offers</a></li>
-      <li><a href="/collections/clearance" class="highlight-orange">Clearance</a></li>
-      <li><a href="/collections/new-arrivals">New Arrivals</a></li>
-      <li><a href="/collections/brands">Shop By Brand</a></li>
+      <li><a href="/collections/specials" class="highlight-red"><i class="fas fa-fire"></i> Special Offers &amp; Deals</a></li>
+      <li><a href="/collections/all">Browse All Products</a></li>
     </ul>
+
+    <div class="mobile-menu-contact">
+      <div class="contact-pill">
+        <i class="fas fa-phone-volume"></i>
+        <div>
+          <span>Need Help? Call Us</span>
+          <strong>0800 000 676</strong>
+        </div>
+      </div>
+      <div class="contact-pill">
+        <i class="fas fa-truck-fast"></i>
+        <div>
+          <span>Same Day NZ Dispatch</span>
+          <strong>Order by 3:45pm</strong>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
 

@@ -9,63 +9,79 @@
         loading="eager"
         fetchpriority="high"
       >
+    {%- else -%}
+      <img
+        class="hero-bg-image"
+        src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1920&auto=format&fit=crop"
+        alt="NSNZ Nutrition Performance"
+        loading="eager"
+        fetchpriority="high"
+      >
     {%- endif -%}
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-eyebrow">{{ section.settings.hero_eyebrow | default: "New Zealand #1 Supplement Store" }}</div>
+    <div class="hero-eyebrow">
+      <i class="fas fa-bolt"></i> {{ section.settings.hero_eyebrow | default: "New Zealand's #1 Destination For Sports Nutrition" }}
+    </div>
     <h1 class="hero-title">
       {{ section.settings.hero_heading | default: 'Fuel Your <span>Performance</span>' }}
     </h1>
-    <p class="hero-desc">{{ section.settings.hero_desc | default: 'Premium sports nutrition trusted by NZ athletes. Same day dispatch on orders before 3:45pm.' }}</p>
+    <p class="hero-desc">{{ section.settings.hero_desc | default: 'Official NZ distributor for Ghost, Ryse, RAW CBUM, C4 Cellucor & more. Same-day dispatch across New Zealand on orders before 3:45pm.' }}</p>
     <div class="hero-cta">
       <a href="{{ section.settings.btn1_url | default: '/collections/all' }}" class="btn-primary">
-        <i class="fas fa-bolt"></i>
-        {{ section.settings.btn1_text | default: 'Shop Now' }}
+        <i class="fas fa-shopping-bag"></i>
+        {{ section.settings.btn1_text | default: 'Shop All Supplements' }}
       </a>
       <a href="{{ section.settings.btn2_url | default: '/collections/top-50' }}" class="btn-outline">
-        {{ section.settings.btn2_text | default: 'Top 50 Supplements' }}
+        <i class="fas fa-trophy"></i>
+        {{ section.settings.btn2_text | default: 'Top 50 Bestsellers' }}
       </a>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge-pill"><i class="fas fa-truck-fast"></i> Free NZ Shipping $60+</div>
+      <div class="hero-badge-pill"><i class="fas fa-shield-check"></i> 100% Authentic Stock</div>
+      <div class="hero-badge-pill"><i class="fas fa-clock"></i> Dispatch by 3:45pm</div>
     </div>
   </div>
   <div class="hero-stats">
     <div class="stat-item">
+      <div class="stat-number">1,600+</div>
+      <div class="stat-label">Authentic Products</div>
+    </div>
+    <div class="stat-item">
       <div class="stat-number">50K+</div>
-      <div class="stat-label">Happy Customers</div>
+      <div class="stat-label">NZ Athletes Fuelled</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number">1000+</div>
-      <div class="stat-label">Products</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">5 Star</div>
-      <div class="stat-label">Avg Rating</div>
+      <div class="stat-number">4.9 ★</div>
+      <div class="stat-label">Verified NZ Reviews</div>
     </div>
   </div>
 </section>
 
-{%- comment -%} Trust Bar {%- endcomment -%}
+{%- comment -%} Trust Bar (SprintFit Style) {%- endcomment -%}
 <div class="trust-bar">
   <div class="trust-bar-inner">
     <div class="trust-item">
-      <i class="fas fa-truck-fast"></i>
-      <div><strong>Free Shipping</strong><span>On orders over $60</span></div>
+      <div class="trust-icon"><i class="fas fa-truck-fast"></i></div>
+      <div class="trust-text"><strong>Free NZ Shipping</strong><span>On all orders over $60</span></div>
     </div>
     <div class="trust-item">
-      <i class="fas fa-bolt"></i>
-      <div><strong>Same Day Dispatch</strong><span>Order before 3:45pm</span></div>
+      <div class="trust-icon"><i class="fas fa-bolt"></i></div>
+      <div class="trust-text"><strong>Same Day Dispatch</strong><span>Order before 3:45pm weekdays</span></div>
     </div>
     <div class="trust-item">
-      <i class="fas fa-shield-halved"></i>
-      <div><strong>100% Authentic</strong><span>Third party tested</span></div>
+      <div class="trust-icon"><i class="fas fa-shield-check"></i></div>
+      <div class="trust-text"><strong>100% Authentic Stock</strong><span>Direct from official importer</span></div>
     </div>
     <div class="trust-item">
-      <i class="fas fa-rotate-left"></i>
-      <div><strong>Easy Returns</strong><span>30 day hassle-free</span></div>
+      <div class="trust-icon"><i class="fas fa-tag"></i></div>
+      <div class="trust-text"><strong>Price Beat Guarantee</strong><span>Found cheaper? We beat it by 5%</span></div>
     </div>
     <div class="trust-item">
-      <i class="fas fa-credit-card"></i>
-      <div><strong>Buy Now Pay Later</strong><span>Afterpay available</span></div>
+      <div class="trust-icon"><i class="fas fa-credit-card"></i></div>
+      <div class="trust-text"><strong>Afterpay &amp; Laybuy</strong><span>4 interest-free payments</span></div>
     </div>
   </div>
 </div>
@@ -73,73 +89,341 @@
 {%- comment -%} Shop by Category {%- endcomment -%}
 <section class="categories-section">
   <div class="section-title">
-    <span class="section-subtitle">Browse</span>
+    <span class="section-subtitle">EXPLORE RANGE</span>
     <h2>Shop By <span>Category</span></h2>
-    <p>Find everything you need to reach your fitness goals</p>
+    <p>Premium sports nutrition curated to help you achieve your ultimate fitness goals</p>
   </div>
   <div class="category-grid">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'category' -%}
-        <a href="{{ block.settings.link }}" class="category-card" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="400" height="400">
-          {%- else -%}
-            <div class="category-placeholder">
-              <i class="fas fa-dumbbell"></i>
-            </div>
-          {%- endif -%}
-          <div class="category-overlay">
-            <div>
-              <div class="category-name">{{ block.settings.title }}</div>
-              <div class="category-count">{{ block.settings.count }}</div>
-            </div>
-          </div>
-        </a>
-      {%- endif -%}
-    {%- endfor -%}
+    {%- comment -%} Predefined Category List with Visual Imagery {%- endcomment -%}
+    <a href="/collections/protein-powder" class="category-card">
+      <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=600&auto=format&fit=crop" alt="Protein Powder" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Most Popular</div>
+          <div class="category-name">Protein Powder</div>
+          <div class="category-count">100+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/pre-workout" class="category-card">
+      <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop" alt="Pre Workout" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">High Energy</div>
+          <div class="category-name">Pre-Workout</div>
+          <div class="category-count">60+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/creatine" class="category-card">
+      <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=600&auto=format&fit=crop" alt="Creatine" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Strength</div>
+          <div class="category-name">Creatine</div>
+          <div class="category-count">40+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/energy-drinks" class="category-card">
+      <img src="https://images.unsplash.com/photo-1622543925917-763c34d1a86e?q=80&w=600&auto=format&fit=crop" alt="Energy Drinks & RTDs" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Ready To Drink</div>
+          <div class="category-name">Energy Drinks</div>
+          <div class="category-count">30+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/protein-bars" class="category-card">
+      <img src="https://images.unsplash.com/photo-1622484216805-4c070f3fbbd2?q=80&w=600&auto=format&fit=crop" alt="Protein Bars" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Snacks</div>
+          <div class="category-name">Protein Bars</div>
+          <div class="category-count">35+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/weight-loss" class="category-card">
+      <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=600&auto=format&fit=crop" alt="Weight Loss" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Burn &amp; Shred</div>
+          <div class="category-name">Fat Burners</div>
+          <div class="category-count">45+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/vitamins" class="category-card">
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop" alt="Vitamins & Health" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Wellness</div>
+          <div class="category-name">Vitamins &amp; Health</div>
+          <div class="category-count">50+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="/collections/accessories" class="category-card">
+      <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?q=80&w=600&auto=format&fit=crop" alt="Shakers & Accessories" loading="lazy" width="400" height="400">
+      <div class="category-overlay">
+        <div>
+          <div class="category-tag">Gear</div>
+          <div class="category-name">Shakers &amp; Gear</div>
+          <div class="category-count">30+ Products <i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
   </div>
 </section>
 
-{%- comment -%} Featured Products {%- endcomment -%}
+{%- comment -%} Brand Showcase Strip {%- endcomment -%}
+<section class="brands-section">
+  <div class="brands-inner">
+    <div class="brands-title">OFFICIAL AUTHORISED NEW ZEALAND RETAILER FOR WORLD-CLASS BRANDS</div>
+    <div class="brands-grid">
+      <div class="brand-item">GHOST®</div>
+      <div class="brand-item">CELLUCOR®</div>
+      <div class="brand-item">RAW® CBUM</div>
+      <div class="brand-item">RYSE®</div>
+      <div class="brand-item">GAT SPORT®</div>
+      <div class="brand-item">MUSCLEPHARM®</div>
+      <div class="brand-item">QUEST®</div>
+      <div class="brand-item">GRENADE®</div>
+      <div class="brand-item">SMARTSHAKE®</div>
+      <div class="brand-item">NEXUS®</div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Featured Products Section {%- endcomment -%}
 <section class="products-section">
   <div class="section-title">
-    <span class="section-subtitle">Best Sellers</span>
-    <h2><span>Top</span> Supplements</h2>
-    <p>Our most popular products loved by NZ athletes</p>
+    <span class="section-subtitle">TOP PICKS</span>
+    <h2>Trending <span>Supplements</span></h2>
+    <p>Our highest rated and most popular supplements chosen by NZ athletes this week</p>
   </div>
+
   <div class="product-grid">
     {%- assign featured_col = collections[section.settings.featured_collection] -%}
+    {%- if featured_col == blank or featured_col.products.size == 0 -%}
+      {%- assign featured_col = collections['all'] -%}
+    {%- endif -%}
+
     {%- if featured_col != blank and featured_col.products.size > 0 -%}
       {%- for product in featured_col.products limit: section.settings.products_count -%}
         {%- render 'product-card', product: product -%}
       {%- endfor -%}
     {%- else -%}
-      {%- for i in (1..8) -%}
-        <div class="product-card">
-          <div class="product-card-image">
-            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- comment -%} Rich demo products with real Nutrition Systems images {%- endcomment -%}
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png" alt="CBUM Thavage Pre-Workout" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-sale">Save 11%</span>
+            <span class="badge badge-bestseller">Best Seller</span>
           </div>
-          <div class="product-card-info">
-            <div class="product-brand">NSNZ Nutrition</div>
-            <div class="product-title"><a href="#">Sample Product {{ i }}</a></div>
-            <div class="product-rating">
-              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-              <span class="rating-count">({{ i | times: 23 }})</span>
-            </div>
-            <div class="product-price">
-              <span class="price-current">$49.99</span>
-              <span class="price-compare">$69.99</span>
-            </div>
-          </div>
-          <button class="btn-add-cart" data-variant-id="">
-            <i class="fas fa-shopping-bag"></i> Add to Cart
-          </button>
         </div>
-      {%- endfor -%}
+        <div class="product-card-info">
+          <div class="product-brand">RAW NUTRITION</div>
+          <h3 class="product-title"><a href="/collections/all">CBUM Thavage Pre-Workout 40 Servings</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(84)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$79.99</span>
+            <span class="price-compare">$89.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/High%20Protein%20Hot%20Cocoa%20Mix/Ghost_HighProteinHotCocoaMix_15Serve_MilkChocolate_Front.png" alt="Ghost 100% Whey Protein" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-new">New</span>
+            <span class="badge badge-sale">Save 11%</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">GHOST LIFESTYLE</div>
+          <h3 class="product-title"><a href="/collections/all">Ghost 100% Whey Protein 2lb Cereal Milk</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(112)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$79.99</span>
+            <span class="price-compare">$89.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Cellucor/C4%20Energy/C4%20Energy%20Non-Carbonated/Tray/Cellucor_C4Energy_Non-Carbonated_355mL_Fruit-Punch.png" alt="Cellucor C4 Original Pre-Workout" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-sale">Save 17%</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">CELLUCOR</div>
+          <h3 class="product-title"><a href="/collections/all">Cellucor C4 Original Pre-Workout 30 Serves</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(96)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$49.99</span>
+            <span class="price-compare">$59.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ryse/Core%20Series/LoadedProtein/27Serves/Ryse_Core-Series_Loaded-Protein_27Serve_CinnamonToast%20.png" alt="RYSE Loaded Protein" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-hot">Popular</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">RYSE FUEL</div>
+          <h3 class="product-title"><a href="/collections/all">RYSE Loaded Protein 27 Serves Cinnamon Toast</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(67)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$79.99</span>
+            <span class="price-compare">$89.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/GAT%20Sport/Creatine_Chews/GAT_Creatine_Chews_30_Servings_Blue_Raspberry_Front.png" alt="GAT Creatine Chews" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-sale">Save 20%</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">GAT SPORT</div>
+          <h3 class="product-title"><a href="/collections/all">GAT Sport Creatine Chews 30 Servings</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(45)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$39.99</span>
+            <span class="price-compare">$49.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Grenade/Protein%20Bar/Box/Grenade_Protein_Bar_60g_Caramel_Chaos_Box.png" alt="Grenade Carb Killa High Protein Bar" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-bestseller">Top Bar</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">GRENADE</div>
+          <h3 class="product-title"><a href="/collections/all">Grenade Carb Killa High Protein Bar 12pk</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(89)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$54.99</span>
+            <span class="price-compare">$64.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Quest/Bars/Bars/Quest_Bar_Cookies%26Cream.png" alt="Quest Nutrition Protein Bar" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-sale">Save 17%</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">QUEST NUTRITION</div>
+          <h3 class="product-title"><a href="/collections/all">Quest Nutrition Protein Bar 12pk Cookies &amp; Cream</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(153)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$49.99</span>
+            <span class="price-compare">$59.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <a href="/collections/all">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Pharmafreak/PharmaFreak_Ripped_Freak_30_Capsules_Front.png" alt="PharmaFreak Ripped Freak 2.0" loading="lazy">
+          </a>
+          <div class="product-badge">
+            <span class="badge badge-hot">Fat Burner</span>
+          </div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">PHARMAFREAK</div>
+          <h3 class="product-title"><a href="/collections/all">PharmaFreak Ripped Freak 2.0 Hybrid Burner</a></h3>
+          <div class="product-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">(78)</span>
+          </div>
+          <div class="product-price">
+            <span class="price-current">$69.99</span>
+            <span class="price-compare">$79.99</span>
+          </div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart"><i class="fas fa-shopping-bag"></i> View Product</a>
+      </div>
     {%- endif -%}
   </div>
-  <div style="text-align:center;margin-top:40px;">
-    <a href="/collections/all" class="btn-outline">View All Products <i class="fas fa-arrow-right"></i></a>
+
+  <div style="text-align:center;margin-top:48px;">
+    <a href="/collections/all" class="btn-primary" style="padding: 16px 40px;">
+      View All 1,000+ Supplements <i class="fas fa-arrow-right"></i>
+    </a>
   </div>
 </section>
 
@@ -149,79 +433,349 @@
     <div class="promo-banner">
       {%- if section.settings.banner1_image != blank -%}
         <img src="{{ section.settings.banner1_image | image_url: width: 900 }}" alt="{{ section.settings.banner1_title | escape }}" loading="lazy">
+      {%- else -%}
+        <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?q=80&w=900&auto=format&fit=crop" alt="Premium Whey Protein Sale" loading="lazy">
       {%- endif -%}
       <div class="promo-banner-content">
-        <span class="promo-tag">{{ section.settings.banner1_tag | default: 'Hot Deal' }}</span>
-        <h3 class="promo-title">{{ section.settings.banner1_title | default: 'Get 30% Off All Protein' }}</h3>
-        <a href="{{ section.settings.banner1_link | default: '/collections/protein-powder' }}" class="btn-primary">Shop Protein</a>
+        <span class="promo-tag">{{ section.settings.banner1_tag | default: 'HOT DEAL' }}</span>
+        <h3 class="promo-title">{{ section.settings.banner1_title | default: 'Save Up to 30% Off All Whey Protein' }}</h3>
+        <p class="promo-desc">Stock up on premium whey isolate, blends and plant proteins from top global brands.</p>
+        <a href="{{ section.settings.banner1_link | default: '/collections/protein-powder' }}" class="btn-primary">Shop Protein Deals</a>
       </div>
     </div>
+
     <div class="promo-banner secondary">
       {%- if section.settings.banner2_image != blank -%}
         <img src="{{ section.settings.banner2_image | image_url: width: 600 }}" alt="{{ section.settings.banner2_title | escape }}" loading="lazy">
+      {%- else -%}
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop" alt="Pre-Workout Collection" loading="lazy">
       {%- endif -%}
       <div class="promo-banner-content">
-        <span class="promo-tag">{{ section.settings.banner2_tag | default: 'New In' }}</span>
-        <h3 class="promo-title" style="font-size:28px;">{{ section.settings.banner2_title | default: 'Pre Workout Collection' }}</h3>
-        <a href="{{ section.settings.banner2_link | default: '/collections/pre-workout' }}" class="btn-primary" style="margin-top:16px;">Shop Now</a>
+        <span class="promo-tag">{{ section.settings.banner2_tag | default: 'EXPLOSIVE ENERGY' }}</span>
+        <h3 class="promo-title">{{ section.settings.banner2_title | default: 'Pre-Workout Stack' }}</h3>
+        <p class="promo-desc">Unrivalled focus, energy, and blood flow for your hardest workouts.</p>
+        <a href="{{ section.settings.banner2_link | default: '/collections/pre-workout' }}" class="btn-outline" style="margin-top:16px;">Explore Pre-Workouts</a>
       </div>
     </div>
   </div>
 </section>
 
-{%- comment -%} Shop by Goal {%- endcomment -%}
-<section class="goal-section">
+{%- comment -%} Shop by Goal Section {%- endcomment -%}
+<section class="goal-section" id="goal-section">
   <div class="section-title">
-    <span class="section-subtitle">Personalised</span>
-    <h2>Shop By <span>Goal</span></h2>
-    <p>Find the right products for your specific fitness goals</p>
+    <span class="section-subtitle">PERSONALISED RESULTS</span>
+    <h2>Shop By <span>Your Goal</span></h2>
+    <p>Target your nutrition to match your exact athletic objectives</p>
   </div>
+
   <div class="goal-tabs">
-    <button class="goal-tab" data-goal="weight-loss"><i class="fas fa-fire"></i> Weight Loss</button>
-    <button class="goal-tab" data-goal="muscle-building"><i class="fas fa-dumbbell"></i> Lean Muscle</button>
-    <button class="goal-tab" data-goal="gain-mass"><i class="fas fa-arrow-trend-up"></i> Gain Mass</button>
-    <button class="goal-tab" data-goal="recovery"><i class="fas fa-heart-pulse"></i> Recovery</button>
-    <button class="goal-tab" data-goal="energy"><i class="fas fa-bolt"></i> Energy</button>
+    <button class="goal-tab active" data-goal="muscle-building"><i class="fas fa-dumbbell"></i> Lean Muscle</button>
+    <button class="goal-tab" data-goal="weight-loss"><i class="fas fa-fire"></i> Weight Loss &amp; Shred</button>
+    <button class="goal-tab" data-goal="energy"><i class="fas fa-bolt"></i> Energy &amp; Focus</button>
+    <button class="goal-tab" data-goal="recovery"><i class="fas fa-heart-pulse"></i> Muscle Recovery</button>
+    <button class="goal-tab" data-goal="gain-mass"><i class="fas fa-arrow-trend-up"></i> Mass &amp; Size</button>
   </div>
-  <div class="product-grid goal-products" data-goal="weight-loss" style="display:none;">
-    {%- assign wl_col = collections['weight-loss'] -%}
-    {%- if wl_col != blank -%}
-      {%- for product in wl_col.products limit: 4 -%}
-        {%- render 'product-card', product: product -%}
-      {%- endfor -%}
-    {%- endif -%}
-  </div>
-  <div class="product-grid goal-products" data-goal="muscle-building" style="display:none;">
+
+  {%- comment -%} Tab 1: Muscle Building (Active by default) {%- endcomment -%}
+  <div class="product-grid goal-products" data-goal="muscle-building" style="display:grid;">
     {%- assign ml_col = collections['lean-muscle'] -%}
-    {%- if ml_col != blank -%}
+    {%- if ml_col != blank and ml_col.products.size > 0 -%}
       {%- for product in ml_col.products limit: 4 -%}
         {%- render 'product-card', product: product -%}
       {%- endfor -%}
+    {%- else -%}
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/High%20Protein%20Hot%20Cocoa%20Mix/Ghost_HighProteinHotCocoaMix_15Serve_MilkChocolate_Front.png" alt="Ghost 100% Whey Protein" loading="lazy">
+          <div class="product-badge"><span class="badge badge-sale">Save 11%</span></div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">GHOST LIFESTYLE</div>
+          <h3 class="product-title"><a href="/collections/all">Ghost 100% Whey Protein Cereal Milk</a></h3>
+          <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(112)</span></div>
+          <div class="product-price"><span class="price-current">$79.99</span><span class="price-compare">$89.99</span></div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart">View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ryse/Core%20Series/LoadedProtein/27Serves/Ryse_Core-Series_Loaded-Protein_27Serve_CinnamonToast%20.png" alt="RYSE Loaded Protein" loading="lazy">
+          <div class="product-badge"><span class="badge badge-bestseller">Best Seller</span></div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">RYSE FUEL</div>
+          <h3 class="product-title"><a href="/collections/all">RYSE Loaded Protein 27 Serves</a></h3>
+          <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(67)</span></div>
+          <div class="product-price"><span class="price-current">$79.99</span><span class="price-compare">$89.99</span></div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart">View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="https://www.nutritionsystems.com.au/media/Product%20Images/GAT%20Sport/Creatine_Chews/GAT_Creatine_Chews_30_Servings_Blue_Raspberry_Front.png" alt="GAT Creatine Chews" loading="lazy">
+          <div class="product-badge"><span class="badge badge-sale">Save 20%</span></div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">GAT SPORT</div>
+          <h3 class="product-title"><a href="/collections/all">GAT Sport Creatine Chews 30 Serves</a></h3>
+          <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(45)</span></div>
+          <div class="product-price"><span class="price-current">$39.99</span><span class="price-compare">$49.99</span></div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart">View Product</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Grenade/Protein%20Bar/Box/Grenade_Protein_Bar_60g_Caramel_Chaos_Box.png" alt="Grenade Carb Killa Bar" loading="lazy">
+          <div class="product-badge"><span class="badge badge-hot">High Protein</span></div>
+        </div>
+        <div class="product-card-info">
+          <div class="product-brand">GRENADE</div>
+          <h3 class="product-title"><a href="/collections/all">Grenade Carb Killa High Protein Bar 12pk</a></h3>
+          <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(89)</span></div>
+          <div class="product-price"><span class="price-current">$54.99</span><span class="price-compare">$64.99</span></div>
+        </div>
+        <a href="/collections/all" class="btn-add-cart">View Product</a>
+      </div>
     {%- endif -%}
   </div>
-  <div class="product-grid goal-products" data-goal="gain-mass" style="display:none;">
-    {%- assign gm_col = collections['gain-mass'] -%}
-    {%- if gm_col != blank -%}
-      {%- for product in gm_col.products limit: 4 -%}
-        {%- render 'product-card', product: product -%}
-      {%- endfor -%}
-    {%- endif -%}
+
+  {%- comment -%} Tab 2: Weight Loss {%- endcomment -%}
+  <div class="product-grid goal-products" data-goal="weight-loss" style="display:none;">
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Pharmafreak/PharmaFreak_Ripped_Freak_30_Capsules_Front.png" alt="PharmaFreak Ripped Freak 2.0" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 12%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">PHARMAFREAK</div>
+        <h3 class="product-title"><a href="/collections/all">PharmaFreak Ripped Freak 2.0 Hybrid</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(78)</span></div>
+        <div class="product-price"><span class="price-current">$69.99</span><span class="price-compare">$79.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/GAT%20Sport/Essentials/GAT_Essentials_L-Carnitine_3000mg_GreenApple_Front.png" alt="GAT L-Carnitine 3000mg" loading="lazy">
+        <div class="product-badge"><span class="badge badge-new">New</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">GAT SPORT</div>
+        <h3 class="product-title"><a href="/collections/all">GAT Sport L-Carnitine 3000mg Liquid</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(34)</span></div>
+        <div class="product-price"><span class="price-current">$44.99</span><span class="price-compare">$54.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Quest/Bars/Bars/Quest_Bar_Cookies%26Cream.png" alt="Quest Protein Bar" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Low Sugar</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">QUEST NUTRITION</div>
+        <h3 class="product-title"><a href="/collections/all">Quest Nutrition Protein Bar 12pk</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(153)</span></div>
+        <div class="product-price"><span class="price-current">$49.99</span><span class="price-compare">$59.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png" alt="CBUM Essential Burner" loading="lazy">
+        <div class="product-badge"><span class="badge badge-bestseller">CBUM</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">RAW NUTRITION</div>
+        <h3 class="product-title"><a href="/collections/all">CBUM Essential Fat Burner 60 Caps</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(49)</span></div>
+        <div class="product-price"><span class="price-current">$59.99</span><span class="price-compare">$69.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
   </div>
-  <div class="product-grid goal-products" data-goal="recovery" style="display:none;">
-    {%- assign rc_col = collections['recovery'] -%}
-    {%- if rc_col != blank -%}
-      {%- for product in rc_col.products limit: 4 -%}
-        {%- render 'product-card', product: product -%}
-      {%- endfor -%}
-    {%- endif -%}
-  </div>
+
+  {%- comment -%} Tab 3: Energy & Focus {%- endcomment -%}
   <div class="product-grid goal-products" data-goal="energy" style="display:none;">
-    {%- assign en_col = collections['energy-endurance'] -%}
-    {%- if en_col != blank -%}
-      {%- for product in en_col.products limit: 4 -%}
-        {%- render 'product-card', product: product -%}
-      {%- endfor -%}
-    {%- endif -%}
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png" alt="CBUM Thavage Pre-Workout" loading="lazy">
+        <div class="product-badge"><span class="badge badge-bestseller">Top Pick</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">RAW NUTRITION</div>
+        <h3 class="product-title"><a href="/collections/all">CBUM Thavage Pre-Workout 40 Serves</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(84)</span></div>
+        <div class="product-price"><span class="price-current">$79.99</span><span class="price-compare">$89.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Cellucor/C4%20Energy/C4%20Energy%20Non-Carbonated/Tray/Cellucor_C4Energy_Non-Carbonated_355mL_Fruit-Punch.png" alt="Cellucor C4 Pre-Workout" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 17%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">CELLUCOR</div>
+        <h3 class="product-title"><a href="/collections/all">Cellucor C4 Original Pre-Workout</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(96)</span></div>
+        <div class="product-price"><span class="price-current">$49.99</span><span class="price-compare">$59.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ryse/Core%20Series/Hydration/Ryse_Core-Hydration_16Serve_Blue-Raspberry_Front.png" alt="RYSE Godzilla Pre-Workout" loading="lazy">
+        <div class="product-badge"><span class="badge badge-hot">High Stim</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">RYSE FUEL</div>
+        <h3 class="product-title"><a href="/collections/all">RYSE Godzilla Pre-Workout 40 Serves</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(72)</span></div>
+        <div class="product-price"><span class="price-current">$89.99</span><span class="price-compare">$99.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/GAT%20Sport/Nitraflex/GAT_Nitraflex_30Serve_Watermelon.png" alt="GAT Nitraflex Pre-Workout" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 13%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">GAT SPORT</div>
+        <h3 class="product-title"><a href="/collections/all">GAT Nitraflex High-Intensity Pre-Workout</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(58)</span></div>
+        <div class="product-price"><span class="price-current">$64.99</span><span class="price-compare">$74.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+  </div>
+
+  {%- comment -%} Tab 4: Recovery {%- endcomment -%}
+  <div class="product-grid goal-products" data-goal="recovery" style="display:none;">
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/Amino/Ghost_Amino_40Serve_IcedTeaLemonade_Front.png" alt="Ghost BCAA V2" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 15%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">GHOST LIFESTYLE</div>
+        <h3 class="product-title"><a href="/collections/all">Ghost BCAA V2 Electrolytes 30 Serves</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(61)</span></div>
+        <div class="product-price"><span class="price-current">$54.99</span><span class="price-compare">$64.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/MusclePharm/Essentials/MusclePharm-Essentials_Glutamine_60serve_Unflavoured.png" alt="MusclePharm Creatine Essentials" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 20%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">MUSCLEPHARM</div>
+        <h3 class="product-title"><a href="/collections/all">MusclePharm Creatine Essentials 60 Serves</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(94)</span></div>
+        <div class="product-price"><span class="price-current">$39.99</span><span class="price-compare">$49.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Nexus/Amino/Nexus_Ammo_30Serve_GrapeXplosion.png" alt="Nexus PER4M Pre-Workout" loading="lazy">
+        <div class="product-badge"><span class="badge badge-new">Nexus</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">NEXUS</div>
+        <h3 class="product-title"><a href="/collections/all">Nexus PER4M Performance 50 Servings</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(41)</span></div>
+        <div class="product-price"><span class="price-current">$69.99</span><span class="price-compare">$79.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/ProSupps/HydeMaxPump/20Servings/ProSupps_HydeMaxPump_20Serve_Unflavoured_front.png" alt="ProSupps Creatine" loading="lazy">
+        <div class="product-badge"><span class="badge badge-bestseller">Pure</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">PROSUPPS</div>
+        <h3 class="product-title"><a href="/collections/all">ProSupps Creatine Monohydrate 60 Serves</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(53)</span></div>
+        <div class="product-price"><span class="price-current">$42.99</span><span class="price-compare">$52.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+  </div>
+
+  {%- comment -%} Tab 5: Mass & Size {%- endcomment -%}
+  <div class="product-grid goal-products" data-goal="gain-mass" style="display:none;">
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/High%20Protein%20Hot%20Cocoa%20Mix/Ghost_HighProteinHotCocoaMix_15Serve_ChocolatePeppermint_Front.png" alt="Ghost 100% Whey" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 11%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">GHOST LIFESTYLE</div>
+        <h3 class="product-title"><a href="/collections/all">Ghost 100% Whey Protein Choc Chip Cookie</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(98)</span></div>
+        <div class="product-price"><span class="price-current">$79.99</span><span class="price-compare">$89.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ryse/Core%20Series/LoadedProtein/27Serves/Ryse_Core-Series_Loaded-Protein_27Serve_PeanutButterCup.png" alt="RYSE Loaded Protein" loading="lazy">
+        <div class="product-badge"><span class="badge badge-hot">High Calorie</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">RYSE FUEL</div>
+        <h3 class="product-title"><a href="/collections/all">RYSE Loaded Protein Peanut Butter Cup</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(64)</span></div>
+        <div class="product-price"><span class="price-current">$79.99</span><span class="price-compare">$89.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/MusclePharm/Assault/MusclePharm_SportSeries_Assault_30Serve_BlueRaspberry_Back.png" alt="MusclePharm Assault Pre-Workout" loading="lazy">
+        <div class="product-badge"><span class="badge badge-sale">Save 18%</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">MUSCLEPHARM</div>
+        <h3 class="product-title"><a href="/collections/all">MusclePharm Assault Sport 30 Serves</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(52)</span></div>
+        <div class="product-price"><span class="price-current">$44.99</span><span class="price-compare">$54.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-image">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/SmartShake/Lite%201000mL/SmartShake_Lite1000_Navy-Blue.png" alt="SmartShake Original2Go" loading="lazy">
+        <div class="product-badge"><span class="badge badge-bestseller">Gear</span></div>
+      </div>
+      <div class="product-card-info">
+        <div class="product-brand">SMARTSHAKE</div>
+        <h3 class="product-title"><a href="/collections/all">SmartShake Original2Go Shaker Bottle 600ml</a></h3>
+        <div class="product-rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rating-count">(88)</span></div>
+        <div class="product-price"><span class="price-current">$19.99</span><span class="price-compare">$24.99</span></div>
+      </div>
+      <a href="/collections/all" class="btn-add-cart">View Product</a>
+    </div>
   </div>
 </section>
 
@@ -229,25 +783,58 @@
 <section class="reviews-section">
   <div class="reviews-inner">
     <div class="section-title">
-      <span class="section-subtitle">Social Proof</span>
-      <h2>What Our <span>Customers Say</span></h2>
+      <span class="section-subtitle">ATHLETE REVIEWS</span>
+      <h2>What NZ Athletes <span>Say About Us</span></h2>
+      <p>Real feedback from New Zealand bodybuilders, crossfitters and everyday athletes</p>
     </div>
     <div class="reviews-grid">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'review' -%}
-          <div class="review-card" {{ block.shopify_attributes }}>
-            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <p class="review-text">&ldquo;{{ block.settings.review_text }}&rdquo;</p>
-            <div class="review-author">
-              <div class="review-avatar">{{ block.settings.author | slice: 0 }}</div>
-              <div>
-                <div class="review-name">{{ block.settings.author }}</div>
-                <div class="review-date">{{ block.settings.date }}</div>
-              </div>
-            </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">&ldquo;Ordered CBUM Thavage at 2pm in Auckland, had it on my doorstep the next morning! Best prices in NZ and genuine stock. Won't buy anywhere else.&rdquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">L</div>
+          <div>
+            <div class="review-name">Liam K. <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified Buyer</span></div>
+            <div class="review-date">Auckland, NZ &bull; September 2026</div>
           </div>
-        {%- endif -%}
-      {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">&ldquo;Ghost Whey Cereal Milk is hands down the best tasting protein on the planet. Packed carefully with free shaker and sample sachets. 10/10 service!&rdquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">S</div>
+          <div>
+            <div class="review-name">Sarah M. <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified Buyer</span></div>
+            <div class="review-date">Christchurch, NZ &bull; September 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">&ldquo;Been buying from SprintFit for years, but NSNZ has faster shipping and unbeatable deals on Ryse &amp; C4. Customer support on phone answered my questions in 30 seconds.&rdquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">D</div>
+          <div>
+            <div class="review-name">Daniel P. <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified Buyer</span></div>
+            <div class="review-date">Wellington, NZ &bull; October 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">&ldquo;The creatine chews and pre-workout combo gave me insane pumps. Really impressed with how smooth checkout with Afterpay was.&rdquo;</p>
+        <div class="review-author">
+          <div class="review-avatar">T</div>
+          <div>
+            <div class="review-name">Tane R. <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified Buyer</span></div>
+            <div class="review-date">Tauranga, NZ &bull; October 2026</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -278,7 +865,7 @@
       "type": "text",
       "id": "hero_eyebrow",
       "label": "Eyebrow Text",
-      "default": "New Zealand's #1 Supplement Store"
+      "default": "New Zealand's #1 Destination For Sports Nutrition"
     },
     {
       "type": "text",
@@ -290,13 +877,13 @@
       "type": "text",
       "id": "hero_desc",
       "label": "Description",
-      "default": "Premium sports nutrition trusted by NZ athletes."
+      "default": "Premium sports nutrition trusted by NZ athletes. Same day dispatch before 3:45pm."
     },
     {
       "type": "text",
       "id": "btn1_text",
       "label": "Button 1 Text",
-      "default": "Shop Now"
+      "default": "Shop All Supplements"
     },
     {
       "type": "url",
@@ -307,7 +894,7 @@
       "type": "text",
       "id": "btn2_text",
       "label": "Button 2 Text",
-      "default": "Top 50 Supplements"
+      "default": "Top 50 Bestsellers"
     },
     {
       "type": "url",
@@ -345,13 +932,13 @@
       "type": "text",
       "id": "banner1_tag",
       "label": "Banner 1 Tag",
-      "default": "Hot Deal"
+      "default": "HOT DEAL"
     },
     {
       "type": "text",
       "id": "banner1_title",
       "label": "Banner 1 Title",
-      "default": "Get 30% Off All Protein"
+      "default": "Save Up to 30% Off All Whey Protein"
     },
     {
       "type": "url",
@@ -371,13 +958,13 @@
       "type": "text",
       "id": "banner2_tag",
       "label": "Banner 2 Tag",
-      "default": "New In"
+      "default": "EXPLOSIVE ENERGY"
     },
     {
       "type": "text",
       "id": "banner2_title",
       "label": "Banner 2 Title",
-      "default": "Pre Workout Collection"
+      "default": "Pre-Workout Stack"
     },
     {
       "type": "url",
@@ -385,34 +972,9 @@
       "label": "Banner 2 Link"
     }
   ],
-  "blocks": [
-    {
-      "type": "category",
-      "name": "Category",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Category Name", "default": "Protein Powder" },
-        { "type": "image_picker", "id": "image", "label": "Category Image" },
-        { "type": "url", "id": "link", "label": "Link" },
-        { "type": "text", "id": "count", "label": "Product Count", "default": "50+ Products" }
-      ]
-    },
-    {
-      "type": "review",
-      "name": "Review",
-      "settings": [
-        { "type": "textarea", "id": "review_text", "label": "Review Text", "default": "Amazing product, great results!" },
-        { "type": "text", "id": "author", "label": "Author Name", "default": "Happy Customer" },
-        { "type": "text", "id": "date", "label": "Date", "default": "October 2026" }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Home Page",
-      "blocks": [
-        { "type": "category" },
-        { "type": "review" }
-      ]
+      "name": "Home Page"
     }
   ]
 }

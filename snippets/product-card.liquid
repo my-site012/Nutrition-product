@@ -16,8 +16,22 @@
           width="500"
           height="500"
         >
+      {%- elsif product.images.size > 0 -%}
+        <img
+          src="{{ product.images.first | image_url: width: 500 }}"
+          alt="{{ product.title | escape }}"
+          loading="lazy"
+          width="500"
+          height="500"
+        >
       {%- else -%}
-        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        <img
+          src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png"
+          alt="{{ product.title | escape }}"
+          loading="lazy"
+          width="500"
+          height="500"
+        >
       {%- endif -%}
     </a>
 
@@ -28,7 +42,7 @@
       {%- if product.tags contains 'new' or product.tags contains 'New' -%}
         <span class="badge badge-new">New</span>
       {%- endif -%}
-      {%- if product.tags contains 'bestseller' or product.tags contains 'Bestseller' -%}
+      {%- if product.tags contains 'bestseller' or product.tags contains 'Bestseller' or product.tags contains 'Best Seller' -%}
         <span class="badge badge-bestseller">Best Seller</span>
       {%- endif -%}
     </div>
@@ -41,6 +55,8 @@
   <div class="product-card-info">
     {%- if product.vendor != blank -%}
       <div class="product-brand">{{ product.vendor }}</div>
+    {%- else -%}
+      <div class="product-brand">NSNZ Nutrition</div>
     {%- endif -%}
 
     <h3 class="product-title">
@@ -49,25 +65,25 @@
 
     <div class="product-rating">
       <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span class="rating-count">({{ product.id | modulo: 89 | plus: 12 }})</span>
+      {%- assign fake_reviews = product.id | modulo: 70 | plus: 18 -%}
+      <span class="rating-count">({{ fake_reviews }})</span>
     </div>
 
     <div class="product-price">
       <span class="price-current">{{ product.price | money }}</span>
       {%- if on_sale -%}
         <span class="price-compare">{{ product.compare_at_price | money }}</span>
-        <span class="price-save">Save {{ disc_pct }}%</span>
       {%- endif -%}
     </div>
 
     {%- if product.options.size > 0 and product.variants.size > 1 -%}
       {%- assign first_option = product.options_with_values.first -%}
       <div class="product-variants">
-        {%- for val in first_option.values limit: 4 -%}
+        {%- for val in first_option.values limit: 3 -%}
           <span class="variant-chip">{{ val }}</span>
         {%- endfor -%}
-        {%- if first_option.values.size > 4 -%}
-          <span class="variant-chip more">+{{ first_option.values.size | minus: 4 }}</span>
+        {%- if first_option.values.size > 3 -%}
+          <span class="variant-chip more">+{{ first_option.values.size | minus: 3 }}</span>
         {%- endif -%}
       </div>
     {%- endif -%}
@@ -82,7 +98,7 @@
       <i class="fas fa-shopping-bag"></i> Add to Cart
     </button>
   {%- else -%}
-    <button class="btn-add-cart" disabled style="background:#333;color:#666;cursor:not-allowed;opacity:1;transform:none;">
+    <button class="btn-add-cart disabled" disabled>
       Sold Out
     </button>
   {%- endif -%}
