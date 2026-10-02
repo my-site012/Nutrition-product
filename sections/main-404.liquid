@@ -1,9 +1,152 @@
-<div class="container" style="padding: 100px 20px; text-align: center; min-height: 50vh;">
-  <h1 style="font-size: 72px; font-weight: 800; color: var(--primary); margin-bottom: 16px;">404</h1>
-  <h2 style="font-size: 28px; margin-bottom: 16px;">Page Not Found</h2>
-  <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 32px;">The page you are looking for does not exist or has been moved.</p>
-  <a href="/" class="btn-primary"><i class="fas fa-home"></i> Back to Homepage</a>
+<div class="page-404-wrapper">
+  <!-- Dynamic Page Content Container (If user visited /pages/shipping, /pages/returns, /pages/faq, /pages/contact before manual creation in Admin) -->
+  <div id="dynamicPageContainer" style="display:none;" class="container page-content-container"></div>
+
+  <!-- Standard Fallback 404 Recovery View -->
+  <div id="standard404Container" class="container" style="padding: 70px 20px 90px; text-align: center; min-height: 60vh;">
+    <div style="display:inline-flex;align-items:center;justify-content:center;width:80px;height:80px;border-radius:50%;background:rgba(194,240,5,0.1);border:1px solid rgba(194,240,5,0.25);margin-bottom:20px;">
+      <i class="fas fa-search" style="font-size:32px;color:var(--primary);"></i>
+    </div>
+    <h1 style="font-family:var(--font-heading);font-size: clamp(32px, 5vw, 56px); font-weight: 800; text-transform: uppercase; color: #fff; margin-bottom: 12px;">
+      Looking for <span style="color:var(--primary);">Supplements?</span>
+    </h1>
+    <p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 32px; font-size: 15px; line-height: 1.6;">
+      The page you were looking for has moved or does not exist, but our full range of 1,000+ authentic sports nutrition products is ready for you below.
+    </p>
+
+    <!-- Quick Search Box -->
+    <div style="max-width: 480px; margin: 0 auto 36px;">
+      <form action="{{ routes.search_url }}" method="get" style="display:flex;position:relative;">
+        <input type="hidden" name="type" value="product">
+        <input type="text" name="q" placeholder="Search protein, creatine, pre-workout..." style="width:100%;height:48px;background:#141722;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:0 120px 0 16px;color:#fff;font-size:14px;outline:none;">
+        <button type="submit" class="btn-primary" style="position:absolute;right:4px;top:4px;bottom:4px;padding:0 20px;font-size:12px;border-radius:6px;">Search</button>
+      </form>
+    </div>
+
+    <!-- Category Shortcuts -->
+    <div style="margin-bottom: 50px;">
+      <span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;">Popular Categories</span>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+        <a href="/collections/all/protein-powder" class="tag-chip"><i class="fas fa-dumbbell" style="margin-right:6px;color:var(--primary);"></i> Protein Powder</a>
+        <a href="/collections/all/pre-workout" class="tag-chip"><i class="fas fa-bolt" style="margin-right:6px;color:var(--primary);"></i> Pre-Workout</a>
+        <a href="/collections/all/creatine" class="tag-chip"><i class="fas fa-atom" style="margin-right:6px;color:var(--primary);"></i> Creatine</a>
+        <a href="/collections/all/energy-drink" class="tag-chip"><i class="fas fa-fire" style="margin-right:6px;color:var(--primary);"></i> Energy Drinks</a>
+        <a href="/collections/all/protein-bars" class="tag-chip"><i class="fas fa-cookie-bite" style="margin-right:6px;color:var(--primary);"></i> Protein Bars</a>
+        <a href="/collections/all/weight-loss" class="tag-chip"><i class="fas fa-flame" style="margin-right:6px;color:var(--primary);"></i> Fat Burners</a>
+        <a href="/collections/all/best-seller" class="tag-chip" style="border-color:var(--primary);color:#fff;"><i class="fas fa-trophy" style="margin-right:6px;color:var(--primary);"></i> Top 50 Bestsellers</a>
+      </div>
+    </div>
+
+    <!-- Home Button -->
+    <div>
+      <a href="{{ routes.root_url }}" class="btn-outline"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+    </div>
+  </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var path = window.location.pathname.toLowerCase().replace(/\/+$/, '');
+  var dyn = document.getElementById('dynamicPageContainer');
+  var std = document.getElementById('standard404Container');
+
+  var pagesContent = {
+    '/pages/shipping': {
+      title: 'Shipping & Delivery Information',
+      badge: 'Fast NZ Wide Delivery',
+      html: '<div class="content-box">' +
+        '<h3 style="color:#fff;margin-bottom:8px;">Same Day New Zealand Dispatch</h3>' +
+        '<p>All orders placed before <strong>3:45pm (Monday &ndash; Friday)</strong> are packed and dispatched the very same day from our Auckland distribution warehouse.</p>' +
+        '<h3 style="color:#fff;margin-top:20px;margin-bottom:8px;">Shipping Rates & Times</h3>' +
+        '<ul style="padding-left:20px;line-height:2;">' +
+          '<li><strong>FREE Shipping:</strong> On all New Zealand orders over $60.</li>' +
+          '<li><strong>Standard Flat Rate:</strong> $5.99 for orders under $60.</li>' +
+          '<li><strong>North Island Delivery:</strong> Overnight delivery (1-2 business days).</li>' +
+          '<li><strong>South Island Delivery:</strong> 1-3 business days.</li>' +
+          '<li><strong>Rural (RD) Addresses:</strong> Please allow an extra 1-2 working days for rural courier handover.</li>' +
+        '</ul>' +
+        '<h3 style="color:#fff;margin-top:20px;margin-bottom:8px;">Track Your Delivery</h3>' +
+        '<p>You will receive an automated tracking link via email as soon as your parcel is scanned onto the courier van. All parcels are signature-tracked for security.</p>' +
+      '</div>'
+    },
+    '/pages/returns': {
+      title: '30-Day Returns & Refunds Policy',
+      badge: 'Hassle-Free Returns',
+      html: '<div class="content-box">' +
+        '<h3 style="color:#fff;margin-bottom:8px;">100% Satisfaction Guarantee</h3>' +
+        '<p>At NSNZ Nutrition, we stand behind the quality of all our supplements. If you change your mind or received an incorrect item, you can return it within 30 days of delivery.</p>' +
+        '<h3 style="color:#fff;margin-top:20px;margin-bottom:8px;">Return Conditions</h3>' +
+        '<ul style="padding-left:20px;line-height:2;">' +
+          '<li>Product must be <strong>unopened, sealed, and in original brand-new condition</strong>.</li>' +
+          '<li>Return must be initiated within 30 days of receiving your order.</li>' +
+          '<li>Proof of purchase (order number or email confirmation) is required.</li>' +
+        '</ul>' +
+        '<h3 style="color:#fff;margin-top:20px;margin-bottom:8px;">Damaged or Defective Items</h3>' +
+        '<p>If your package arrives damaged or missing an item, please take a photo and contact our customer service team immediately at <strong>support@fitdirect.co.nz</strong> or call <strong>0800 000 676</strong> for an immediate replacement or full refund.</p>' +
+      '</div>'
+    },
+    '/pages/faq': {
+      title: 'Frequently Asked Questions',
+      badge: 'Help & Knowledge Base',
+      html: '<div class="content-box">' +
+        '<h3 style="color:#fff;margin-bottom:6px;">1. Are all products 100% authentic?</h3>' +
+        '<p style="margin-bottom:16px;">Yes, absolutely. We are an authorized direct retailer for all featured brands including Ghost, RYSE, RAW CBUM, Cellucor, MusclePharm, GAT Sport, Quest, and Grenade. Every product is 100% genuine with verifiable batch codes and expiration dates.</p>' +
+        '<h3 style="color:#fff;margin-bottom:6px;">2. How quickly do you ship?</h3>' +
+        '<p style="margin-bottom:16px;">Orders placed before 3:45pm weekdays are dispatched same day with overnight courier delivery for most North Island areas.</p>' +
+        '<h3 style="color:#fff;margin-bottom:6px;">3. Do you offer buy-now-pay-later?</h3>' +
+        '<p style="margin-bottom:16px;">Yes! We support Afterpay, Laybuy, and Zip at checkout, splitting your purchase into 4 interest-free payments.</p>' +
+        '<h3 style="color:#fff;margin-bottom:6px;">4. Can I get supplement advice?</h3>' +
+        '<p>Yes! Our Auckland-based certified sports nutrition team is available Mon-Fri 8:30am-5pm. Call us on <strong>0800 000 676</strong>.</p>' +
+      '</div>'
+    },
+    '/pages/contact': {
+      title: 'Contact Customer Support',
+      badge: 'We are here to help',
+      html: '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:30px;">' +
+        '<div>' +
+          '<h3 style="color:#fff;margin-bottom:8px;">Get In Touch</h3>' +
+          '<p>Have questions about your order, tracking, or supplement stacks? Our NZ team is here to assist.</p>' +
+          '<div style="margin-top:20px;display:flex;flex-direction:column;gap:14px;">' +
+            '<div><strong><i class="fas fa-phone" style="color:var(--primary);margin-right:8px;"></i> Freephone:</strong> 0800 000 676</div>' +
+            '<div><strong><i class="fas fa-envelope" style="color:var(--primary);margin-right:8px;"></i> Email:</strong> support@fitdirect.co.nz</div>' +
+            '<div><strong><i class="fas fa-clock" style="color:var(--primary);margin-right:8px;"></i> Hours:</strong> Monday &ndash; Friday: 8:30am &ndash; 5:00pm NZST</div>' +
+            '<div><strong><i class="fas fa-location-dot" style="color:var(--primary);margin-right:8px;"></i> Location:</strong> Auckland Distribution Hub, New Zealand</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="background:#141722;padding:24px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">' +
+          '<h3 style="color:#fff;margin-bottom:16px;">Send Us A Message</h3>' +
+          '<form onsubmit="event.preventDefault();alert(\'Thank you! Your message has been sent. We will respond within 24 hours.\');this.reset();">' +
+            '<div style="margin-bottom:12px;"><input type="text" placeholder="Your Name" required style="width:100%;height:40px;padding:0 12px;background:#0d0f15;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;"></div>' +
+            '<div style="margin-bottom:12px;"><input type="email" placeholder="Your Email" required style="width:100%;height:40px;padding:0 12px;background:#0d0f15;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;"></div>' +
+            '<div style="margin-bottom:12px;"><textarea placeholder="Your Message or Order #" rows="4" required style="width:100%;padding:10px 12px;background:#0d0f15;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-family:inherit;"></textarea></div>' +
+            '<button type="submit" class="btn-primary" style="width:100%;padding:12px;">Send Message</button>' +
+          '</form>' +
+        '</div>' +
+      '</div>'
+    }
+  };
+
+  if (pagesContent[path]) {
+    var p = pagesContent[path];
+    if (std) std.style.display = 'none';
+    if (dyn) {
+      dyn.style.display = 'block';
+      dyn.innerHTML = '<div style="padding: 50px 20px 80px; max-width: 900px; margin: 0 auto;">' +
+        '<div style="margin-bottom:24px;">' +
+          '<span class="section-subtitle">' + p.badge + '</span>' +
+          '<h1 style="font-family:var(--font-heading);font-size:clamp(30px, 4vw, 44px);font-weight:800;text-transform:uppercase;color:#fff;margin-top:8px;">' + p.title + '</h1>' +
+        '</div>' +
+        '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:32px;line-height:1.8;color:var(--text-secondary);">' +
+          p.html +
+        '</div>' +
+        '<div style="margin-top:24px;text-align:center;">' +
+          '<a href="/" class="btn-outline"><i class="fas fa-arrow-left"></i> Back to Homepage</a>' +
+        '</div>' +
+      '</div>';
+    }
+  }
+});
+</script>
 
 {% schema %}
 {

@@ -1,7 +1,84 @@
-<div class="container" style="padding: 60px 20px; max-width: 900px; min-height: 50vh;">
-  <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 24px;">{{ page.title }}</h1>
-  <div class="page-content" style="color: var(--text-muted); line-height: 1.8; font-size: 15px;">
-    {{ page.content }}
+<div class="page-standard-wrapper" style="padding: 40px 0 80px;">
+  <div class="container" style="max-width: 960px;">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>{{ page.title }}</span>
+    </nav>
+
+    <div class="page-standard-header" style="margin-bottom: 30px;">
+      <span class="section-subtitle">INFORMATION</span>
+      <h1 style="font-family: var(--font-heading); font-size: clamp(30px, 4vw, 44px); font-weight: 800; text-transform: uppercase; color: #fff; margin-top: 8px;">
+        {{ page.title }}
+      </h1>
+    </div>
+
+    <div class="page-standard-body" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: clamp(24px, 4vw, 44px); line-height: 1.8; color: var(--text-secondary); font-size: 15px;">
+      {%- if page.content != blank -%}
+        <div class="user-page-content rte">
+          {{ page.content }}
+        </div>
+      {%- else -%}
+        {%- case page.handle -%}
+          {%- when 'shipping' -%}
+            <h3 style="color:#fff;margin-bottom:10px;">Same Day New Zealand Dispatch</h3>
+            <p>All orders placed before <strong>3:45pm (Monday &ndash; Friday)</strong> are dispatched the very same day from our Auckland distribution warehouse.</p>
+            <h3 style="color:#fff;margin-top:24px;margin-bottom:10px;">Shipping Rates</h3>
+            <ul style="padding-left:20px;line-height:2;">
+              <li><strong>FREE Shipping:</strong> On all orders over $60 across New Zealand.</li>
+              <li><strong>Standard NZ Shipping:</strong> $5.99 flat rate for orders under $60.</li>
+              <li><strong>North Island Delivery:</strong> Overnight delivery (1-2 business days).</li>
+              <li><strong>South Island Delivery:</strong> 1-3 business days.</li>
+              <li><strong>Rural (RD) Addresses:</strong> Extra 1-2 working days for rural delivery.</li>
+            </ul>
+          {%- when 'returns' -%}
+            <h3 style="color:#fff;margin-bottom:10px;">30-Day Money Back Guarantee</h3>
+            <p>If you're not completely satisfied with your purchase or ordered the wrong product, you can return it within 30 days of delivery.</p>
+            <h3 style="color:#fff;margin-top:24px;margin-bottom:10px;">Return Requirements</h3>
+            <ul style="padding-left:20px;line-height:2;">
+              <li>Product must be sealed, unopened, and in its original packaging.</li>
+              <li>Please keep your order confirmation email or receipt.</li>
+              <li>Contact our team at <strong>support@fitdirect.co.nz</strong> or call <strong>0800 000 676</strong> for a return authorization number.</li>
+            </ul>
+          {%- when 'faq' -%}
+            <h3 style="color:#fff;margin-bottom:10px;">1. Are all products 100% authentic?</h3>
+            <p style="margin-bottom:16px;">Yes! We are an authorized retailer for all featured brands including Ghost, RYSE, RAW CBUM, Cellucor, MusclePharm, GAT Sport, Quest, and Grenade. Every product is 100% genuine with verifiable batch codes and expiration dates.</p>
+            <h3 style="color:#fff;margin-bottom:10px;">2. How fast is delivery?</h3>
+            <p style="margin-bottom:16px;">Orders placed before 3:45pm weekdays are dispatched same day with overnight courier delivery for most North Island areas.</p>
+            <h3 style="color:#fff;margin-bottom:10px;">3. Can I pay with Afterpay or Laybuy?</h3>
+            <p>Yes, we accept Afterpay, Laybuy, and Zip at checkout, splitting your purchase into 4 interest-free payments.</p>
+          {%- when 'contact' -%}
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:30px;">
+              <div>
+                <h3 style="color:#fff;margin-bottom:8px;">Get In Touch</h3>
+                <p>Have questions about your order or supplement advice? Contact our certified sports nutrition team.</p>
+                <div style="margin-top:20px;display:flex;flex-direction:column;gap:14px;">
+                  <div><strong><i class="fas fa-phone" style="color:var(--primary);margin-right:8px;"></i> Freephone:</strong> 0800 000 676</div>
+                  <div><strong><i class="fas fa-envelope" style="color:var(--primary);margin-right:8px;"></i> Email:</strong> support@fitdirect.co.nz</div>
+                  <div><strong><i class="fas fa-clock" style="color:var(--primary);margin-right:8px;"></i> Hours:</strong> Monday &ndash; Friday: 8:30am &ndash; 5:00pm NZST</div>
+                </div>
+              </div>
+              <div style="background:#141722;padding:24px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
+                <h3 style="color:#fff;margin-bottom:16px;">Send Us A Message</h3>
+                {%- form 'contact' -%}
+                  {%- if form.posted_successfully? -%}
+                    <p style="color:var(--green-success);font-weight:700;">Thank you! Your message has been sent successfully.</p>
+                  {%- endif -%}
+                  {{ form.errors | default_errors }}
+                  <div style="margin-bottom:12px;"><input type="text" name="contact[name]" placeholder="Your Name" required style="width:100%;height:40px;padding:0 12px;background:#0d0f15;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;"></div>
+                  <div style="margin-bottom:12px;"><input type="email" name="contact[email]" placeholder="Your Email" required style="width:100%;height:40px;padding:0 12px;background:#0d0f15;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;"></div>
+                  <div style="margin-bottom:12px;"><textarea name="contact[body]" placeholder="Your Message" rows="4" required style="width:100%;padding:10px 12px;background:#0d0f15;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-family:inherit;"></textarea></div>
+                  <button type="submit" class="btn-primary" style="width:100%;padding:12px;">Send Message</button>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- else -%}
+            <p>Welcome to NSNZ Nutrition. We are New Zealand's leading destination for premium authentic sports nutrition and bodybuilding supplements.</p>
+        {%- endcase -%}
+      {%- endif -%}
+    </div>
+
   </div>
 </div>
 

@@ -25,6 +25,55 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  {%- if request.page_type == '404' -%}
+    <script>
+      (function() {
+        var rawPath = window.location.pathname;
+        var path = rawPath.replace(/\/+$/, '');
+        var parts = path.split('/').filter(Boolean);
+        if (parts.length >= 1 && parts[0] === 'collections') {
+          if (parts.length === 1) {
+            window.location.replace('/collections/all');
+            return;
+          }
+          if (parts.length === 2 && parts[1] !== 'all') {
+            var handle = parts[1].toLowerCase();
+            var map = {
+              'energy-drinks': 'energy-drink',
+              'energy-drink': 'energy-drink',
+              'specials': 'best-seller',
+              'special-offers': 'best-seller',
+              'top-50': 'best-seller',
+              'bestsellers': 'best-seller',
+              'best-sellers': 'best-seller',
+              'fat-burners': 'weight-loss',
+              'fat-burner': 'weight-loss',
+              'weight-loss': 'weight-loss',
+              'protein-powder': 'protein-powder',
+              'protein-powders': 'protein-powder',
+              'pre-workout': 'pre-workout',
+              'pre-workouts': 'pre-workout',
+              'creatine': 'creatine',
+              'protein-bars': 'protein-bars',
+              'protein-bar': 'protein-bars',
+              'bcaa': 'bcaa',
+              'amino': 'bcaa',
+              'accessories': 'accessories',
+              'gear': 'accessories',
+              'vitamins': 'all'
+            };
+            var target = map[handle] || handle;
+            if (target === 'all') {
+              window.location.replace('/collections/all');
+            } else {
+              window.location.replace('/collections/all/' + target);
+            }
+          }
+        }
+      })();
+    </script>
+  {%- endif -%}
 </head>
 
 <body id="body" class="template-{{ template.name }}">
