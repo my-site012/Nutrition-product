@@ -33,7 +33,7 @@
         <i class="fas fa-shopping-bag"></i>
         {{ section.settings.btn1_text | default: 'Shop All Supplements' }}
       </a>
-      <a href="{{ section.settings.btn2_url | default: '/collections/top-50' }}" class="btn-outline">
+      <a href="{{ section.settings.btn2_url | default: '/collections/all/best-seller' }}" class="btn-outline">
         <i class="fas fa-trophy"></i>
         {{ section.settings.btn2_text | default: 'Top 50 Bestsellers' }}
       </a>
@@ -95,7 +95,7 @@
   </div>
   <div class="category-grid">
     {%- comment -%} Predefined Category List with Visual Imagery {%- endcomment -%}
-    <a href="/collections/protein-powder" class="category-card">
+    <a href="/collections/all/protein-powder" class="category-card">
       <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=600&auto=format&fit=crop" alt="Protein Powder" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -106,7 +106,7 @@
       </div>
     </a>
 
-    <a href="/collections/pre-workout" class="category-card">
+    <a href="/collections/all/pre-workout" class="category-card">
       <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop" alt="Pre Workout" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -117,7 +117,7 @@
       </div>
     </a>
 
-    <a href="/collections/creatine" class="category-card">
+    <a href="/collections/all/creatine" class="category-card">
       <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=600&auto=format&fit=crop" alt="Creatine" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -128,7 +128,7 @@
       </div>
     </a>
 
-    <a href="/collections/energy-drinks" class="category-card">
+    <a href="/collections/all/energy-drink" class="category-card">
       <img src="https://images.unsplash.com/photo-1622543925917-763c34d1a86e?q=80&w=600&auto=format&fit=crop" alt="Energy Drinks & RTDs" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -139,8 +139,8 @@
       </div>
     </a>
 
-    <a href="/collections/protein-bars" class="category-card">
-      <img src="https://images.unsplash.com/photo-1622484216805-4c070f3fbbd2?q=80&w=600&auto=format&fit=crop" alt="Protein Bars" loading="lazy" width="400" height="400">
+    <a href="/collections/all/protein-bars" class="category-card">
+      <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?q=80&w=600&auto=format&fit=crop" alt="Protein Bars" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
           <div class="category-tag">Snacks</div>
@@ -150,7 +150,7 @@
       </div>
     </a>
 
-    <a href="/collections/weight-loss" class="category-card">
+    <a href="/collections/all/weight-loss" class="category-card">
       <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=600&auto=format&fit=crop" alt="Weight Loss" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -161,7 +161,7 @@
       </div>
     </a>
 
-    <a href="/collections/vitamins" class="category-card">
+    <a href="/collections/all" class="category-card">
       <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=600&auto=format&fit=crop" alt="Vitamins & Health" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -172,7 +172,7 @@
       </div>
     </a>
 
-    <a href="/collections/accessories" class="category-card">
+    <a href="/collections/all/accessories" class="category-card">
       <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?q=80&w=600&auto=format&fit=crop" alt="Shakers & Accessories" loading="lazy" width="400" height="400">
       <div class="category-overlay">
         <div>
@@ -227,7 +227,7 @@
       <div class="product-card">
         <div class="product-card-image">
           <a href="/collections/all">
-            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png" alt="CBUM Thavage Pre-Workout" loading="lazy">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Thavage/CBUM_Thavage_40Serve_Christophers-Secret-Stuff_Front.png" alt="CBUM Thavage Pre-Workout" loading="lazy">
           </a>
           <div class="product-badge">
             <span class="badge badge-sale">Save 11%</span>
@@ -252,7 +252,7 @@
       <div class="product-card">
         <div class="product-card-image">
           <a href="/collections/all">
-            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/High%20Protein%20Hot%20Cocoa%20Mix/Ghost_HighProteinHotCocoaMix_15Serve_MilkChocolate_Front.png" alt="Ghost 100% Whey Protein" loading="lazy">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/Whey/2lbs/2026/Ghost_Whey_2lb_Cereal_Milk_Front.png" alt="Ghost 100% Whey Protein" loading="lazy">
           </a>
           <div class="product-badge">
             <span class="badge badge-new">New</span>
@@ -277,7 +277,7 @@
       <div class="product-card">
         <div class="product-card-image">
           <a href="/collections/all">
-            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Cellucor/C4%20Energy/C4%20Energy%20Non-Carbonated/Tray/Cellucor_C4Energy_Non-Carbonated_355mL_Fruit-Punch.png" alt="Cellucor C4 Original Pre-Workout" loading="lazy">
+            <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Cellucor/C4%20Original/Watermelon/Cellucor_C4Original_30Servings_Watermelon_Front.png" alt="Cellucor C4 Original Pre-Workout" loading="lazy">
           </a>
           <div class="product-badge">
             <span class="badge badge-sale">Save 17%</span>
@@ -440,7 +440,7 @@
         <span class="promo-tag">{{ section.settings.banner1_tag | default: 'HOT DEAL' }}</span>
         <h3 class="promo-title">{{ section.settings.banner1_title | default: 'Save Up to 30% Off All Whey Protein' }}</h3>
         <p class="promo-desc">Stock up on premium whey isolate, blends and plant proteins from top global brands.</p>
-        <a href="{{ section.settings.banner1_link | default: '/collections/protein-powder' }}" class="btn-primary">Shop Protein Deals</a>
+        <a href="{{ section.settings.banner1_link | default: '/collections/all/protein-powder' }}" class="btn-primary">Shop Protein Deals</a>
       </div>
     </div>
 
@@ -454,7 +454,7 @@
         <span class="promo-tag">{{ section.settings.banner2_tag | default: 'EXPLOSIVE ENERGY' }}</span>
         <h3 class="promo-title">{{ section.settings.banner2_title | default: 'Pre-Workout Stack' }}</h3>
         <p class="promo-desc">Unrivalled focus, energy, and blood flow for your hardest workouts.</p>
-        <a href="{{ section.settings.banner2_link | default: '/collections/pre-workout' }}" class="btn-outline" style="margin-top:16px;">Explore Pre-Workouts</a>
+        <a href="{{ section.settings.banner2_link | default: '/collections/all/pre-workout' }}" class="btn-outline" style="margin-top:16px;">Explore Pre-Workouts</a>
       </div>
     </div>
   </div>
@@ -486,7 +486,7 @@
     {%- else -%}
       <div class="product-card">
         <div class="product-card-image">
-          <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/High%20Protein%20Hot%20Cocoa%20Mix/Ghost_HighProteinHotCocoaMix_15Serve_MilkChocolate_Front.png" alt="Ghost 100% Whey Protein" loading="lazy">
+          <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/Whey/2lbs/2026/Ghost_Whey_2lb_Cereal_Milk_Front.png" alt="Ghost 100% Whey Protein" loading="lazy">
           <div class="product-badge"><span class="badge badge-sale">Save 11%</span></div>
         </div>
         <div class="product-card-info">
@@ -588,7 +588,7 @@
 
     <div class="product-card">
       <div class="product-card-image">
-        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png" alt="CBUM Essential Burner" loading="lazy">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Essential%20Fat%20Burner/CBUM_Essential-Fat-Burner_60Caps.png" alt="CBUM Essential Burner" loading="lazy">
         <div class="product-badge"><span class="badge badge-bestseller">CBUM</span></div>
       </div>
       <div class="product-card-info">
@@ -605,7 +605,7 @@
   <div class="product-grid goal-products" data-goal="energy" style="display:none;">
     <div class="product-card">
       <div class="product-card-image">
-        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Christophers%20Juicy%20Pumps/CBUM_Christopher%27sJuicyPumps_40Serve_BlueRaspberry_Front.png" alt="CBUM Thavage Pre-Workout" loading="lazy">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/RAW_CBUM/CBUM%20Thavage/CBUM_Thavage_40Serve_Christophers-Secret-Stuff_Front.png" alt="CBUM Thavage Pre-Workout" loading="lazy">
         <div class="product-badge"><span class="badge badge-bestseller">Top Pick</span></div>
       </div>
       <div class="product-card-info">
@@ -619,7 +619,7 @@
 
     <div class="product-card">
       <div class="product-card-image">
-        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Cellucor/C4%20Energy/C4%20Energy%20Non-Carbonated/Tray/Cellucor_C4Energy_Non-Carbonated_355mL_Fruit-Punch.png" alt="Cellucor C4 Pre-Workout" loading="lazy">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Cellucor/C4%20Original/Watermelon/Cellucor_C4Original_30Servings_Watermelon_Front.png" alt="Cellucor C4 Pre-Workout" loading="lazy">
         <div class="product-badge"><span class="badge badge-sale">Save 17%</span></div>
       </div>
       <div class="product-card-info">
@@ -723,7 +723,7 @@
   <div class="product-grid goal-products" data-goal="gain-mass" style="display:none;">
     <div class="product-card">
       <div class="product-card-image">
-        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/High%20Protein%20Hot%20Cocoa%20Mix/Ghost_HighProteinHotCocoaMix_15Serve_ChocolatePeppermint_Front.png" alt="Ghost 100% Whey" loading="lazy">
+        <img src="https://www.nutritionsystems.com.au/media/Product%20Images/Ghost/Whey/2lbs/2026/Ghost_Whey_2lb_Cookies_Chip_Cookies_Front.png" alt="Ghost 100% Whey" loading="lazy">
         <div class="product-badge"><span class="badge badge-sale">Save 11%</span></div>
       </div>
       <div class="product-card-info">

@@ -9,15 +9,15 @@
         "btn1_text": "Shop All Supplements",
         "btn1_url": "/collections/all",
         "btn2_text": "Top 50 Bestsellers",
-        "btn2_url": "/collections/top-50",
+        "btn2_url": "/collections/all/best-seller",
         "featured_collection": "all",
         "products_count": 8,
         "banner1_tag": "HOT DEAL",
         "banner1_title": "Save Up to 30% Off All Whey Protein",
-        "banner1_link": "/collections/protein-powder",
+        "banner1_link": "/collections/all/protein-powder",
         "banner2_tag": "EXPLOSIVE ENERGY",
         "banner2_title": "Pre-Workout Stack",
-        "banner2_link": "/collections/pre-workout"
+        "banner2_link": "/collections/all/pre-workout"
       }
     }
   },
