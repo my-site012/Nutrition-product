@@ -421,6 +421,23 @@
   </div>
 </div>
 
+<div class="mobile-sticky-bar" id="mobileStickyBar">
+  <div class="sticky-bar-info">
+    <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title | escape }}" width="44" height="44" loading="lazy">
+    <div>
+      <div class="sticky-bar-title">{{ product.title | truncate: 25 }}</div>
+      <div class="sticky-bar-price" id="stickyPrice">{{ product.price | money }}</div>
+    </div>
+  </div>
+  <button type="button" class="btn-primary sticky-bar-atc" id="stickyAtcBtn" {% unless product.available %}disabled{% endunless %}>
+    {% if product.available %}
+      <i class="fas fa-shopping-bag"></i> Add
+    {% else %}
+      Sold Out
+    {% endif %}
+  </button>
+</div>
+
 <script>
   window.__variantData = {{ product.variants | json }};
 
@@ -486,6 +503,10 @@
         var stockBadge = document.getElementById('productStockBadge');
         var atc = document.getElementById('addToCartBtn');
         var buy = document.getElementById('buyNowBtn');
+        var stickyP = document.getElementById('stickyPrice');
+        var stickyBtn = document.getElementById('stickyAtcBtn');
+
+        if (stickyP) stickyP.textContent = formatMoney(matchedVariant.price);
 
         if (atc) atc.dataset.variantId = matchedVariant.id;
 
@@ -498,6 +519,10 @@
             atc.disabled = false;
             atc.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
           }
+          if (stickyBtn) {
+            stickyBtn.disabled = false;
+            stickyBtn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add';
+          }
           if (buy) buy.style.display = '';
         } else {
           if (stockBadge) {
@@ -507,6 +532,10 @@
           if (atc) {
             atc.disabled = true;
             atc.innerHTML = 'Sold Out';
+          }
+          if (stickyBtn) {
+            stickyBtn.disabled = true;
+            stickyBtn.innerHTML = 'Sold Out';
           }
           if (buy) buy.style.display = 'none';
         }
@@ -609,6 +638,27 @@
           window.location.href = '/cart';
         });
       });
+    }
+
+    /* Mobile Sticky Bar Scroll Trigger */
+    var stickyBar = document.getElementById('mobileStickyBar');
+    var mainAtcBtn = document.getElementById('addToCartBtn');
+    if (stickyBar && mainAtcBtn) {
+      window.addEventListener('scroll', function() {
+        var rect = mainAtcBtn.getBoundingClientRect();
+        if (rect.bottom < 0) {
+          stickyBar.classList.add('visible');
+        } else {
+          stickyBar.classList.remove('visible');
+        }
+      }, { passive: true });
+
+      var stickyAtcBtn = document.getElementById('stickyAtcBtn');
+      if (stickyAtcBtn) {
+        stickyAtcBtn.addEventListener('click', function() {
+          mainAtcBtn.click();
+        });
+      }
     }
   });
 </script>
