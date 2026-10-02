@@ -26,7 +26,7 @@
       <i class="fas fa-headset"></i>
       <div>
         <strong>Expert Support</strong>
-        <span>0800 000 891</span>
+        <span>0800 000 676</span>
       </div>
     </div>
     <div class="trust-item">
@@ -46,7 +46,7 @@
         {% if settings.logo %}
           <img src="{{ settings.logo | image_url: width: 160 }}" alt="{{ shop.name }}" style="height:40px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1)">
         {% else %}
-          <span class="logo-text">{{ shop.name }}</span>
+          <span class="logo-text">{% if shop.name contains 'My Store' or shop.name == blank %}NSNZ<span class="logo-dot">.</span><span class="logo-sub">NUTRITION</span>{% else %}{{ shop.name }}{% endif %}</span>
         {% endif %}
       </div>
       <p>{{ section.settings.brand_description }}</p>
@@ -145,13 +145,14 @@
 
   <!-- Footer Bottom Bar -->
   <div class="footer-bottom">
-    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <p>&copy; {{ 'now' | date: '%Y' }} {% if shop.name contains 'My Store' or shop.name == blank %}NSNZ Nutrition NZ{% else %}{{ shop.name }}{% endif %}. All rights reserved. 100% New Zealand Owned &amp; Operated &bull; Auckland, NZ.</p>
     <div class="payment-icons">
       <span class="payment-icon">VISA</span>
       <span class="payment-icon">MC</span>
       <span class="payment-icon">AMEX</span>
       <span class="payment-icon">Afterpay</span>
-      <span class="payment-icon">PayPal</span>
+      <span class="payment-icon">Zip</span>
+      <span class="payment-icon">Laybuy</span>
       <span class="payment-icon" style="display:flex;align-items:center;gap:4px;">
         <i class="fab fa-apple" style="font-size:14px"></i> Pay
       </span>
