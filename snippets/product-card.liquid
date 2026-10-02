@@ -1,0 +1,89 @@
+{%- comment -%} Reusable Product Card Snippet {%- endcomment -%}
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+  {%- assign on_sale = true -%}
+  {%- assign disc_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+{%- endif -%}
+
+<div class="product-card" data-product-id="{{ product.id }}">
+  <div class="product-card-image">
+    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+      {%- if product.featured_image != blank -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 500 }}"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          loading="lazy"
+          width="500"
+          height="500"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+
+    <div class="product-badge">
+      {%- if on_sale -%}
+        <span class="badge badge-sale">Save {{ disc_pct }}%</span>
+      {%- endif -%}
+      {%- if product.tags contains 'new' or product.tags contains 'New' -%}
+        <span class="badge badge-new">New</span>
+      {%- endif -%}
+      {%- if product.tags contains 'bestseller' or product.tags contains 'Bestseller' -%}
+        <span class="badge badge-bestseller">Best Seller</span>
+      {%- endif -%}
+    </div>
+
+    <button class="card-wishlist" data-id="{{ product.id }}" aria-label="Add {{ product.title | escape }} to wishlist">
+      <i class="fas fa-heart"></i>
+    </button>
+  </div>
+
+  <div class="product-card-info">
+    {%- if product.vendor != blank -%}
+      <div class="product-brand">{{ product.vendor }}</div>
+    {%- endif -%}
+
+    <h3 class="product-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    <div class="product-rating">
+      <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="rating-count">({{ product.id | modulo: 89 | plus: 12 }})</span>
+    </div>
+
+    <div class="product-price">
+      <span class="price-current">{{ product.price | money }}</span>
+      {%- if on_sale -%}
+        <span class="price-compare">{{ product.compare_at_price | money }}</span>
+        <span class="price-save">Save {{ disc_pct }}%</span>
+      {%- endif -%}
+    </div>
+
+    {%- if product.options.size > 0 and product.variants.size > 1 -%}
+      {%- assign first_option = product.options_with_values.first -%}
+      <div class="product-variants">
+        {%- for val in first_option.values limit: 4 -%}
+          <span class="variant-chip">{{ val }}</span>
+        {%- endfor -%}
+        {%- if first_option.values.size > 4 -%}
+          <span class="variant-chip more">+{{ first_option.values.size | minus: 4 }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if product.available -%}
+    <button
+      class="btn-add-cart"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      aria-label="Add {{ product.title | escape }} to cart"
+    >
+      <i class="fas fa-shopping-bag"></i> Add to Cart
+    </button>
+  {%- else -%}
+    <button class="btn-add-cart" disabled style="background:#333;color:#666;cursor:not-allowed;opacity:1;transform:none;">
+      Sold Out
+    </button>
+  {%- endif -%}
+</div>

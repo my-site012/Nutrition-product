@@ -1,0 +1,19 @@
+{
+  "general": {
+    "search": {
+      "placeholder": "Search products..."
+    }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "checkout": "Proceed to Checkout",
+    "view_cart": "View Cart",
+    "subtotal": "Subtotal"
+  },
+  "products": {
+    "add_to_cart": "Add to Cart",
+    "sold_out": "Sold Out",
+    "view_product": "View Product"
+  }
+}

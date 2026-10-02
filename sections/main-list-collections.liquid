@@ -1,0 +1,18 @@
+<div class="container" style="padding: 60px 20px; min-height: 60vh;">
+  <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 30px;">All Collections</h1>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;">
+    {% for col in collections %}
+      <a href="{{ col.url }}" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center; transition: border-color 0.2s;">
+        <h2 style="font-size: 18px; color: #fff; margin-bottom: 8px;">{{ col.title }}</h2>
+        <span style="font-size: 13px; color: var(--primary);">{{ col.all_products_count }} products &rarr;</span>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections List",
+  "settings": []
+}
+{% endschema %}

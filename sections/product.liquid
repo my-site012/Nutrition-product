@@ -1,0 +1,316 @@
+{%- comment -%} Product Page Section {%- endcomment -%}
+
+<div class="product-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      {%- for col in product.collections limit: 1 -%}
+        <a href="{{ col.url }}">{{ col.title }}</a>
+        <i class="fas fa-chevron-right"></i>
+      {%- endfor -%}
+      <span>{{ product.title | truncate: 40 }}</span>
+    </nav>
+
+    <div class="product-layout">
+
+      <div class="product-images">
+        <div class="main-image-wrap">
+          <img
+            id="mainProductImg"
+            src="{{ product.featured_image | image_url: width: 800 }}"
+            alt="{{ product.featured_image.alt | default: product.title | escape }}"
+            width="800"
+            height="800"
+            loading="eager"
+          >
+          {%- if product.compare_at_price > product.price -%}
+            {%- assign disc_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+            <div class="product-save-badge">SAVE {{ disc_pct }}%</div>
+          {%- endif -%}
+          <button class="card-wishlist" data-id="{{ product.id }}" aria-label="Add to wishlist">
+            <i class="fas fa-heart"></i>
+          </button>
+        </div>
+        {%- if product.images.size > 1 -%}
+          <div class="thumbnail-strip">
+            {%- for image in product.images -%}
+              <button
+                class="thumb-btn {%- if forloop.first -%} active{%- endif -%}"
+                data-src="{{ image | image_url: width: 800 }}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                <img src="{{ image | image_url: width: 150 }}" alt="{{ image.alt | escape }}" loading="lazy" width="72" height="72">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="product-info">
+        {%- if product.vendor != blank -%}
+          <div class="product-vendor">{{ product.vendor }}</div>
+        {%- endif -%}
+
+        <h1 class="product-main-title">{{ product.title }}</h1>
+
+        <div class="product-meta-row">
+          <div class="product-stars">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-count">({{ product.id | modulo: 89 | plus: 24 }} reviews)</span>
+          </div>
+          {%- if product.available -%}
+            <span class="stock-badge in-stock">In Stock</span>
+          {%- else -%}
+            <span class="stock-badge out-of-stock">Out of Stock</span>
+          {%- endif -%}
+        </div>
+
+        <div class="product-price-wrap">
+          <span class="product-price-main" id="productPrice">{{ product.price | money }}</span>
+          {%- if product.compare_at_price > product.price -%}
+            <span class="product-price-compare">{{ product.compare_at_price | money }}</span>
+          {%- endif -%}
+          <span class="price-currency">NZD incl. GST</span>
+        </div>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="variant-group">
+              <label class="variant-label">
+                {{ option.name }}:
+                <span class="variant-selected" id="sel-{{ option.position }}">{{ option.selected_value }}</span>
+              </label>
+              <div class="variant-options">
+                {%- for value in option.values -%}
+                  <button
+                    class="variant-btn {%- if option.selected_value == value -%} active{%- endif -%}"
+                    data-option="{{ option.position }}"
+                    data-value="{{ value | escape }}"
+                    aria-label="{{ option.name }}: {{ value }}"
+                  >
+                    {{ value }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <div class="atc-row">
+          <div class="qty-wrap">
+            <button class="qty-change" data-dir="-1" aria-label="Decrease quantity">&#8722;</button>
+            <input type="number" id="productQty" value="1" min="1" max="99" aria-label="Quantity">
+            <button class="qty-change" data-dir="1" aria-label="Increase quantity">&#43;</button>
+          </div>
+          <button
+            id="addToCartBtn"
+            class="btn-primary atc-btn"
+            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+            {%- unless product.available -%} disabled{%- endunless -%}
+          >
+            {%- if product.available -%}
+              <i class="fas fa-shopping-bag"></i> Add to Cart
+            {%- else -%}
+              Sold Out
+            {%- endif -%}
+          </button>
+        </div>
+
+        {%- if product.available -%}
+          <a href="{{ routes.cart_url }}" class="btn-outline buy-now-btn">
+            <i class="fas fa-bolt"></i> Buy Now
+          </a>
+        {%- endif -%}
+
+        <div class="product-trust-grid">
+          <div class="product-trust-item">
+            <i class="fas fa-truck-fast"></i>
+            <span>Free Shipping Over $60</span>
+          </div>
+          <div class="product-trust-item">
+            <i class="fas fa-shield-halved"></i>
+            <span>100% Authentic</span>
+          </div>
+          <div class="product-trust-item">
+            <i class="fas fa-rotate-left"></i>
+            <span>30-Day Returns</span>
+          </div>
+        </div>
+
+        {%- if product.tags.size > 0 -%}
+          <div class="product-tags">
+            {%- for tag in product.tags -%}
+              <a href="{{ routes.collections_url }}/all/{{ tag | handle }}" class="product-tag">{{ tag }}</a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="product-tabs-section">
+      <div class="product-tabs" role="tablist">
+        <button class="product-tab active" role="tab" aria-selected="true" data-tab="description">Description</button>
+        <button class="product-tab" role="tab" aria-selected="false" data-tab="nutrition">Nutritional Info</button>
+        <button class="product-tab" role="tab" aria-selected="false" data-tab="usage">How to Use</button>
+        <button class="product-tab" role="tab" aria-selected="false" data-tab="reviews">Reviews</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-description" role="tabpanel">
+        <div class="tab-content">
+          {%- if product.description != blank -%}
+            {{ product.description }}
+          {%- else -%}
+            <p>No description available for this product.</p>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-nutrition" role="tabpanel">
+        <div class="tab-content">
+          <p>Please refer to the product label for full nutritional information.</p>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-usage" role="tabpanel">
+        <div class="tab-content">
+          <ol class="usage-steps">
+            <li>Mix one scoop with 250ml of cold water or milk.</li>
+            <li>Shake well for 20-30 seconds until fully dissolved.</li>
+            <li>Consume within 30 minutes of training for best results.</li>
+            <li>Use consistently as part of your nutrition plan for best results.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="tab-panel" id="tab-reviews" role="tabpanel">
+        <div class="tab-content reviews-grid">
+          <div class="review-card">
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-text">&ldquo;Great product! I have seen real results since using it.&rdquo;</p>
+            <div class="review-author">
+              <div class="review-avatar">J</div>
+              <div>
+                <div class="review-name">Verified Customer</div>
+                <div class="review-date">{{ 'now' | date: '%B %Y' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- assign first_tag = product.tags.first -%}
+    {%- if first_tag != blank -%}
+      {%- assign tag_handle = first_tag | handle -%}
+      {%- assign related_col = collections[tag_handle] -%}
+      {%- if related_col != blank and related_col.products.size > 1 -%}
+        <div class="related-products">
+          <div class="section-title" style="text-align:left;">
+            <span class="section-subtitle">You May Also Like</span>
+            <h2>Related <span>Products</span></h2>
+          </div>
+          <div class="product-grid">
+            {%- for rp in related_col.products limit: 4 -%}
+              {%- unless rp.id == product.id -%}
+                {%- render 'product-card', product: rp -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  window.__variantData = {{ product.variants | json }};
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var mainImg = document.getElementById('mainProductImg');
+
+    document.querySelectorAll('.thumb-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.thumb-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        if (mainImg) mainImg.src = this.dataset.src;
+      });
+    });
+
+    document.querySelectorAll('.qty-change').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var input = document.getElementById('productQty');
+        var val = parseInt(input.value) + parseInt(this.dataset.dir);
+        if (val >= 1 && val <= 99) input.value = val;
+      });
+    });
+
+    document.querySelectorAll('.variant-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var pos = this.dataset.option;
+        document.querySelectorAll('.variant-btn[data-option="' + pos + '"]').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var selEl = document.getElementById('sel-' + pos);
+        if (selEl) selEl.textContent = this.dataset.value;
+      });
+    });
+
+    document.querySelectorAll('.product-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.product-tab').forEach(function(t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        var panel = document.getElementById('tab-' + this.dataset.tab);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    var atcBtn = document.getElementById('addToCartBtn');
+    if (atcBtn) {
+      atcBtn.addEventListener('click', function() {
+        var variantId = this.dataset.variantId;
+        var qty = parseInt(document.getElementById('productQty').value) || 1;
+        if (!variantId) return;
+        var self = this;
+        self.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+        self.disabled = true;
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: parseInt(variantId), quantity: qty })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function() {
+          self.innerHTML = '<i class="fas fa-check"></i> Added!';
+          self.style.background = '#22c55e';
+          return fetch('/cart.js');
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(cart) {
+          var countEl = document.getElementById('cartCount');
+          if (countEl) { countEl.textContent = cart.item_count; countEl.style.display = ''; }
+          if (window.showToast) showToast('Added to cart!');
+          setTimeout(function() {
+            self.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+            self.style.background = '';
+            self.disabled = false;
+          }, 2000);
+        })
+        .catch(function() {
+          self.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+          self.disabled = false;
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Page",
+  "settings": []
+}
+{% endschema %}

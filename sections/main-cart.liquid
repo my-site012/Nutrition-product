@@ -1,0 +1,48 @@
+<div class="container" style="padding: 60px 20px; min-height: 60vh;">
+  <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 30px;">Shopping Cart</h1>
+
+  {% if cart.item_count > 0 %}
+    <form action="/cart" method="post" id="cartForm">
+      <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px;">
+        {% for item in cart.items %}
+          <div style="display: flex; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border);">
+            <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.title | escape }}" width="80" height="80" style="border-radius: 4px; object-fit: contain; background: #1a1a1a;">
+            <div style="flex: 1;">
+              <h3 style="font-size: 16px; margin-bottom: 6px;"><a href="{{ item.url }}" style="color: #fff;">{{ item.product.title }}</a></h3>
+              {% unless item.variant.title == 'Default Title' %}
+                <p style="font-size: 13px; color: var(--text-muted);">{{ item.variant.title }}</p>
+              {% endunless %}
+              <p style="color: var(--primary); font-weight: 700; margin-top: 4px;">{{ item.final_price | money }}</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width: 60px; padding: 8px; background: #111; border: 1px solid var(--border); color: #fff; text-align: center; border-radius: 4px;">
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" style="color: var(--red-sale); font-size: 14px;" aria-label="Remove item"><i class="fas fa-trash"></i></a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <button type="submit" name="update" class="btn-outline">Update Cart</button>
+        <div style="text-align: right;">
+          <p style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Subtotal: <span style="color: var(--primary);">{{ cart.total_price | money }}</span></p>
+          <button type="submit" name="checkout" class="btn-primary" style="padding: 14px 40px; font-size: 16px;">Proceed to Checkout</button>
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <div style="text-align: center; padding: 60px 20px;">
+      <i class="fas fa-shopping-bag" style="font-size: 48px; color: var(--text-muted); margin-bottom: 20px; display: block;"></i>
+      <h2 style="font-size: 24px; margin-bottom: 12px;">Your cart is empty</h2>
+      <p style="color: var(--text-muted); margin-bottom: 24px;">Looks like you haven't added any supplements yet.</p>
+      <a href="/collections/all" class="btn-primary">Start Shopping</a>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

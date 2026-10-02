@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <title>
+    {{ page_title }}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {{ content_for_header }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+
+<body id="body" class="template-{{ template.name }}">
+
+  {%- section 'announcement-bar' -%}
+  {%- section 'header' -%}
+
+  <main id="main-content" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {%- section 'footer' -%}
+
+  {%- comment -%} Cart Drawer {%- endcomment -%}
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-drawer-header">
+      <h3>Your Cart <span id="cartItemCount">({{ cart.item_count }})</span></h3>
+      <button class="close-cart" id="closeCart" aria-label="Close cart">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-drawer-body" id="cartDrawerBody">
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          <div class="cart-item" data-key="{{ item.key }}">
+            <img src="{{ item.image | image_url: width: 80 }}" alt="{{ item.title | escape }}" loading="lazy" width="80" height="80">
+            <div class="cart-item-details">
+              <p class="cart-item-title">{{ item.product.title }}</p>
+              {%- unless item.variant.title == 'Default Title' -%}
+                <p class="cart-item-variant">{{ item.variant.title }}</p>
+              {%- endunless -%}
+              <div class="cart-item-qty-price">
+                <div class="qty-control">
+                  <button class="qty-btn" data-action="decrease" data-key="{{ item.key }}" aria-label="Decrease">-</button>
+                  <span class="qty-value">{{ item.quantity }}</span>
+                  <button class="qty-btn" data-action="increase" data-key="{{ item.key }}" aria-label="Increase">+</button>
+                </div>
+                <span class="cart-item-price">{{ item.final_line_price | money }}</span>
+              </div>
+            </div>
+            <button class="remove-item" data-key="{{ item.key }}" aria-label="Remove item">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="cart-empty">
+          <i class="fas fa-shopping-bag"></i>
+          <p>Your cart is empty</p>
+          <a href="/collections/all" class="btn-shop-now">Shop Now</a>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-drawer-footer">
+        <div class="cart-subtotal">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal">{{ cart.total_price | money }}</span>
+        </div>
+        {%- assign free_threshold = 6000 -%}
+        {%- assign remaining = free_threshold | minus: cart.total_price -%}
+        <div class="free-shipping-progress">
+          {%- if remaining > 0 -%}
+            <p>Add {{ remaining | money }} more for <strong>FREE SHIPPING</strong></p>
+            <div class="progress-bar">
+              {%- assign pct = cart.total_price | times: 100 | divided_by: free_threshold -%}
+              <div class="progress-fill" style="width: {{ pct }}%"></div>
+            </div>
+          {%- else -%}
+            <p class="shipping-unlocked">You've unlocked FREE SHIPPING!</p>
+          {%- endif -%}
+        </div>
+        <a href="/checkout" class="btn-checkout">Proceed to Checkout</a>
+        <a href="/cart" class="btn-view-cart">View Cart</a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Back to top {%- endcomment -%}
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  {%- comment -%} Toast Notification {%- endcomment -%}
+  <div class="toast" id="toast" aria-live="polite">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Added to cart!</span>
+  </div>
+
+  {{ 'theme.js' | asset_url | script_tag }}
+
+</body>
+</html>

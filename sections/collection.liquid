@@ -1,0 +1,169 @@
+{%- comment -%} Collection Page Section {%- endcomment -%}
+
+<div class="collection-page">
+  <div class="container">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="{{ routes.collections_url }}">Collections</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>{{ collection.title }}</span>
+    </nav>
+
+    <div class="collection-header">
+      <div class="collection-header-left">
+        <h1>{{ collection.title }}</h1>
+        {%- if collection.description != blank -%}
+          <p class="collection-desc">{{ collection.description }}</p>
+        {%- endif -%}
+        <p class="collection-count">{{ collection.products_count }} Products</p>
+      </div>
+      <div class="collection-header-right">
+        <button class="btn-outline filter-toggle-btn" id="filterToggleBtn">
+          <i class="fas fa-sliders"></i> Filters
+        </button>
+        <div class="sort-wrap">
+          <label for="sortSelect" class="sr-only">Sort by</label>
+          <select id="sortSelect" name="sort_by" aria-label="Sort products">
+            <option value="title-ascending" {%- if collection.sort_by == 'title-ascending' -%} selected{%- endif -%}>Name A-Z</option>
+            <option value="title-descending" {%- if collection.sort_by == 'title-descending' -%} selected{%- endif -%}>Name Z-A</option>
+            <option value="price-ascending" {%- if collection.sort_by == 'price-ascending' -%} selected{%- endif -%}>Price: Low to High</option>
+            <option value="price-descending" {%- if collection.sort_by == 'price-descending' -%} selected{%- endif -%}>Price: High to Low</option>
+            <option value="best-selling" {%- if collection.sort_by == 'best-selling' -%} selected{%- endif -%}>Best Selling</option>
+            <option value="created-descending" {%- if collection.sort_by == 'created-descending' -%} selected{%- endif -%}>Newest First</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="collection-layout">
+
+      <aside class="filter-sidebar" id="filterSidebar">
+        <div class="filter-box">
+
+          <div class="filter-group">
+            <div class="filter-group-header">
+              <span>Price Range</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="filter-group-body">
+              <div class="price-inputs">
+                <input type="number" id="priceMin" placeholder="Min" aria-label="Minimum price">
+                <span>to</span>
+                <input type="number" id="priceMax" placeholder="Max" aria-label="Maximum price">
+                <button id="applyPriceBtn">Go</button>
+              </div>
+            </div>
+          </div>
+
+          {%- if collection.all_tags.size > 0 -%}
+            <div class="filter-group">
+              <div class="filter-group-header">
+                <span>Filter By</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="filter-group-body">
+                <div class="tag-chips">
+                  {%- for tag in collection.all_tags limit: 20 -%}
+                    <a href="{{ collection.url }}/{{ tag | handle }}" class="tag-chip">{{ tag }}</a>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+
+          <a href="{{ collection.url }}" class="clear-filters-btn">Clear All Filters</a>
+        </div>
+      </aside>
+
+      <div class="collection-main">
+        {%- if collection.products.size > 0 -%}
+          {%- paginate collection.products by 24 -%}
+            <div class="product-grid" id="collectionGrid">
+              {%- for product in collection.products -%}
+                {%- render 'product-card', product: product -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if paginate.pages > 1 -%}
+              <nav class="pagination" aria-label="Pagination">
+                {%- if paginate.previous -%}
+                  <a href="{{ paginate.previous.url }}" class="page-link" aria-label="Previous page">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                {%- endif -%}
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}" class="page-link {%- if part.is_current -%} active{%- endif -%}">{{ part.title }}</a>
+                  {%- else -%}
+                    <span class="page-link {%- if part.is_current -%} active{%- endif -%}">{{ part.title }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if paginate.next -%}
+                  <a href="{{ paginate.next.url }}" class="page-link" aria-label="Next page">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {%- endif -%}
+              </nav>
+            {%- endif -%}
+          {%- endpaginate -%}
+        {%- else -%}
+          <div class="empty-collection">
+            <i class="fas fa-search"></i>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or browse all products.</p>
+            <a href="/collections/all" class="btn-primary">Browse All Products</a>
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var filterToggle = document.getElementById('filterToggleBtn');
+    var sidebar = document.getElementById('filterSidebar');
+    if (filterToggle && sidebar) {
+      filterToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+      });
+    }
+
+    var sortSel = document.getElementById('sortSelect');
+    if (sortSel) {
+      sortSel.addEventListener('change', function() {
+        var url = new URL(window.location.href);
+        url.searchParams.set('sort_by', this.value);
+        window.location.href = url.toString();
+      });
+    }
+
+    var priceBtn = document.getElementById('applyPriceBtn');
+    if (priceBtn) {
+      priceBtn.addEventListener('click', function() {
+        var min = document.getElementById('priceMin').value;
+        var max = document.getElementById('priceMax').value;
+        var url = new URL(window.location.href);
+        if (min) url.searchParams.set('filter.v.price.gte', min);
+        if (max) url.searchParams.set('filter.v.price.lte', max);
+        window.location.href = url.toString();
+      });
+    }
+
+    document.querySelectorAll('.filter-group-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        this.closest('.filter-group').classList.toggle('open');
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": []
+}
+{% endschema %}

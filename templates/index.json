@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main": {
+      "type": "index",
+      "settings": {
+        "hero_eyebrow": "New Zealand #1 Supplement Store",
+        "hero_heading": "Fuel Your Performance",
+        "hero_desc": "Premium sports nutrition trusted by thousands of NZ athletes. Same day dispatch before 3:45pm.",
+        "btn1_text": "Shop Now",
+        "btn2_text": "Top 50 Supplements",
+        "products_count": 8,
+        "banner1_tag": "Hot Deal",
+        "banner1_title": "Get 30% Off All Protein",
+        "banner2_tag": "New In",
+        "banner2_title": "Pre Workout Collection"
+      },
+      "blocks": {
+        "cat-protein": { "type": "category", "settings": { "title": "Protein Powder", "link": "/collections/protein-powder", "count": "100+ Products" } },
+        "cat-creatine": { "type": "category", "settings": { "title": "Creatine", "link": "/collections/creatine", "count": "40+ Products" } },
+        "cat-preworkout": { "type": "category", "settings": { "title": "Pre Workout", "link": "/collections/pre-workout", "count": "60+ Products" } },
+        "cat-bars": { "type": "category", "settings": { "title": "Protein Bars", "link": "/collections/protein-bars", "count": "35+ Products" } },
+        "cat-weightloss": { "type": "category", "settings": { "title": "Weight Loss", "link": "/collections/weight-loss", "count": "45+ Products" } },
+        "cat-vitamins": { "type": "category", "settings": { "title": "Vitamins", "link": "/collections/vitamins", "count": "50+ Products" } },
+        "cat-accessories": { "type": "category", "settings": { "title": "Accessories", "link": "/collections/accessories", "count": "30+ Products" } },
+        "cat-greens": { "type": "category", "settings": { "title": "Super Greens", "link": "/collections/super-greens", "count": "25+ Products" } },
+        "review1": { "type": "review", "settings": { "review_text": "Amazing quality! The Whey Protein tastes incredible and I have seen real results in 3 months.", "author": "Sarah M.", "date": "September 2026" } },
+        "review2": { "type": "review", "settings": { "review_text": "Best supplement store in NZ. Fast delivery and great prices. Creatine Monohydrate is a game changer.", "author": "James T.", "date": "August 2026" } },
+        "review3": { "type": "review", "settings": { "review_text": "Products arrived next day and were exactly as described. Will definitely order again!", "author": "Emily R.", "date": "October 2026" } },
+        "review4": { "type": "review", "settings": { "review_text": "The pre-workout selection is unreal. Customer service helped me choose the right one for my goals.", "author": "Mike K.", "date": "September 2026" } }
+      },
+      "block_order": [
+        "cat-protein",
+        "cat-creatine",
+        "cat-preworkout",
+        "cat-bars",
+        "cat-weightloss",
+        "cat-vitamins",
+        "cat-accessories",
+        "cat-greens",
+        "review1",
+        "review2",
+        "review3",
+        "review4"
+      ]
+    }
+  },
+  "order": ["main"]
+}

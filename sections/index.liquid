@@ -1,0 +1,419 @@
+{%- comment -%} Hero Banner Section {%- endcomment -%}
+<section class="hero-section" id="hero">
+  <div class="hero-bg">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        class="hero-bg-image"
+        src="{{ section.settings.hero_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.hero_heading | escape }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">{{ section.settings.hero_eyebrow | default: "New Zealand #1 Supplement Store" }}</div>
+    <h1 class="hero-title">
+      {{ section.settings.hero_heading | default: 'Fuel Your <span>Performance</span>' }}
+    </h1>
+    <p class="hero-desc">{{ section.settings.hero_desc | default: 'Premium sports nutrition trusted by NZ athletes. Same day dispatch on orders before 3:45pm.' }}</p>
+    <div class="hero-cta">
+      <a href="{{ section.settings.btn1_url | default: '/collections/all' }}" class="btn-primary">
+        <i class="fas fa-bolt"></i>
+        {{ section.settings.btn1_text | default: 'Shop Now' }}
+      </a>
+      <a href="{{ section.settings.btn2_url | default: '/collections/top-50' }}" class="btn-outline">
+        {{ section.settings.btn2_text | default: 'Top 50 Supplements' }}
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-number">50K+</div>
+      <div class="stat-label">Happy Customers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1000+</div>
+      <div class="stat-label">Products</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5 Star</div>
+      <div class="stat-label">Avg Rating</div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Trust Bar {%- endcomment -%}
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <i class="fas fa-truck-fast"></i>
+      <div><strong>Free Shipping</strong><span>On orders over $60</span></div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-bolt"></i>
+      <div><strong>Same Day Dispatch</strong><span>Order before 3:45pm</span></div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-shield-halved"></i>
+      <div><strong>100% Authentic</strong><span>Third party tested</span></div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-rotate-left"></i>
+      <div><strong>Easy Returns</strong><span>30 day hassle-free</span></div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-credit-card"></i>
+      <div><strong>Buy Now Pay Later</strong><span>Afterpay available</span></div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Shop by Category {%- endcomment -%}
+<section class="categories-section">
+  <div class="section-title">
+    <span class="section-subtitle">Browse</span>
+    <h2>Shop By <span>Category</span></h2>
+    <p>Find everything you need to reach your fitness goals</p>
+  </div>
+  <div class="category-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'category' -%}
+        <a href="{{ block.settings.link }}" class="category-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="400" height="400">
+          {%- else -%}
+            <div class="category-placeholder">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+          {%- endif -%}
+          <div class="category-overlay">
+            <div>
+              <div class="category-name">{{ block.settings.title }}</div>
+              <div class="category-count">{{ block.settings.count }}</div>
+            </div>
+          </div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{%- comment -%} Featured Products {%- endcomment -%}
+<section class="products-section">
+  <div class="section-title">
+    <span class="section-subtitle">Best Sellers</span>
+    <h2><span>Top</span> Supplements</h2>
+    <p>Our most popular products loved by NZ athletes</p>
+  </div>
+  <div class="product-grid">
+    {%- assign featured_col = collections[section.settings.featured_collection] -%}
+    {%- if featured_col != blank and featured_col.products.size > 0 -%}
+      {%- for product in featured_col.products limit: section.settings.products_count -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..8) -%}
+        <div class="product-card">
+          <div class="product-card-image">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          <div class="product-card-info">
+            <div class="product-brand">NSNZ Nutrition</div>
+            <div class="product-title"><a href="#">Sample Product {{ i }}</a></div>
+            <div class="product-rating">
+              <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="rating-count">({{ i | times: 23 }})</span>
+            </div>
+            <div class="product-price">
+              <span class="price-current">$49.99</span>
+              <span class="price-compare">$69.99</span>
+            </div>
+          </div>
+          <button class="btn-add-cart" data-variant-id="">
+            <i class="fas fa-shopping-bag"></i> Add to Cart
+          </button>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div style="text-align:center;margin-top:40px;">
+    <a href="/collections/all" class="btn-outline">View All Products <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+{%- comment -%} Promo Banners {%- endcomment -%}
+<section class="banners-section">
+  <div class="banner-grid">
+    <div class="promo-banner">
+      {%- if section.settings.banner1_image != blank -%}
+        <img src="{{ section.settings.banner1_image | image_url: width: 900 }}" alt="{{ section.settings.banner1_title | escape }}" loading="lazy">
+      {%- endif -%}
+      <div class="promo-banner-content">
+        <span class="promo-tag">{{ section.settings.banner1_tag | default: 'Hot Deal' }}</span>
+        <h3 class="promo-title">{{ section.settings.banner1_title | default: 'Get 30% Off All Protein' }}</h3>
+        <a href="{{ section.settings.banner1_link | default: '/collections/protein-powder' }}" class="btn-primary">Shop Protein</a>
+      </div>
+    </div>
+    <div class="promo-banner secondary">
+      {%- if section.settings.banner2_image != blank -%}
+        <img src="{{ section.settings.banner2_image | image_url: width: 600 }}" alt="{{ section.settings.banner2_title | escape }}" loading="lazy">
+      {%- endif -%}
+      <div class="promo-banner-content">
+        <span class="promo-tag">{{ section.settings.banner2_tag | default: 'New In' }}</span>
+        <h3 class="promo-title" style="font-size:28px;">{{ section.settings.banner2_title | default: 'Pre Workout Collection' }}</h3>
+        <a href="{{ section.settings.banner2_link | default: '/collections/pre-workout' }}" class="btn-primary" style="margin-top:16px;">Shop Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Shop by Goal {%- endcomment -%}
+<section class="goal-section">
+  <div class="section-title">
+    <span class="section-subtitle">Personalised</span>
+    <h2>Shop By <span>Goal</span></h2>
+    <p>Find the right products for your specific fitness goals</p>
+  </div>
+  <div class="goal-tabs">
+    <button class="goal-tab" data-goal="weight-loss"><i class="fas fa-fire"></i> Weight Loss</button>
+    <button class="goal-tab" data-goal="muscle-building"><i class="fas fa-dumbbell"></i> Lean Muscle</button>
+    <button class="goal-tab" data-goal="gain-mass"><i class="fas fa-arrow-trend-up"></i> Gain Mass</button>
+    <button class="goal-tab" data-goal="recovery"><i class="fas fa-heart-pulse"></i> Recovery</button>
+    <button class="goal-tab" data-goal="energy"><i class="fas fa-bolt"></i> Energy</button>
+  </div>
+  <div class="product-grid goal-products" data-goal="weight-loss" style="display:none;">
+    {%- assign wl_col = collections['weight-loss'] -%}
+    {%- if wl_col != blank -%}
+      {%- for product in wl_col.products limit: 4 -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="product-grid goal-products" data-goal="muscle-building" style="display:none;">
+    {%- assign ml_col = collections['lean-muscle'] -%}
+    {%- if ml_col != blank -%}
+      {%- for product in ml_col.products limit: 4 -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="product-grid goal-products" data-goal="gain-mass" style="display:none;">
+    {%- assign gm_col = collections['gain-mass'] -%}
+    {%- if gm_col != blank -%}
+      {%- for product in gm_col.products limit: 4 -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="product-grid goal-products" data-goal="recovery" style="display:none;">
+    {%- assign rc_col = collections['recovery'] -%}
+    {%- if rc_col != blank -%}
+      {%- for product in rc_col.products limit: 4 -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  <div class="product-grid goal-products" data-goal="energy" style="display:none;">
+    {%- assign en_col = collections['energy-endurance'] -%}
+    {%- if en_col != blank -%}
+      {%- for product in en_col.products limit: 4 -%}
+        {%- render 'product-card', product: product -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{%- comment -%} Customer Reviews {%- endcomment -%}
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <div class="section-title">
+      <span class="section-subtitle">Social Proof</span>
+      <h2>What Our <span>Customers Say</span></h2>
+    </div>
+    <div class="reviews-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="review-card" {{ block.shopify_attributes }}>
+            <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="review-text">&ldquo;{{ block.settings.review_text }}&rdquo;</p>
+            <div class="review-author">
+              <div class="review-avatar">{{ block.settings.author | slice: 0 }}</div>
+              <div>
+                <div class="review-name">{{ block.settings.author }}</div>
+                <div class="review-date">{{ block.settings.date }}</div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Quick View Modal {%- endcomment -%}
+<div class="quick-view-modal" id="quickViewModal" aria-hidden="true">
+  <div class="quick-view-content" id="quickViewContent">
+    <button class="quick-view-close" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow Text",
+      "default": "New Zealand's #1 Supplement Store"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Fuel Your Performance"
+    },
+    {
+      "type": "text",
+      "id": "hero_desc",
+      "label": "Description",
+      "default": "Premium sports nutrition trusted by NZ athletes."
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text",
+      "default": "Top 50 Supplements"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Button 2 URL"
+    },
+    {
+      "type": "header",
+      "content": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Featured Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Number of Products",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner1_image",
+      "label": "Banner 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "banner1_tag",
+      "label": "Banner 1 Tag",
+      "default": "Hot Deal"
+    },
+    {
+      "type": "text",
+      "id": "banner1_title",
+      "label": "Banner 1 Title",
+      "default": "Get 30% Off All Protein"
+    },
+    {
+      "type": "url",
+      "id": "banner1_link",
+      "label": "Banner 1 Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner2_image",
+      "label": "Banner 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "banner2_tag",
+      "label": "Banner 2 Tag",
+      "default": "New In"
+    },
+    {
+      "type": "text",
+      "id": "banner2_title",
+      "label": "Banner 2 Title",
+      "default": "Pre Workout Collection"
+    },
+    {
+      "type": "url",
+      "id": "banner2_link",
+      "label": "Banner 2 Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Category Name", "default": "Protein Powder" },
+        { "type": "image_picker", "id": "image", "label": "Category Image" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "count", "label": "Product Count", "default": "50+ Products" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "review_text", "label": "Review Text", "default": "Amazing product, great results!" },
+        { "type": "text", "id": "author", "label": "Author Name", "default": "Happy Customer" },
+        { "type": "text", "id": "date", "label": "Date", "default": "October 2026" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Page",
+      "blocks": [
+        { "type": "category" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

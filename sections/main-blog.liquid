@@ -1,0 +1,24 @@
+<div class="container" style="padding: 60px 20px; min-height: 50vh;">
+  <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 30px;">{{ blog.title }}</h1>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+    {% for article in blog.articles %}
+      <article style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;">
+        {% if article.image %}
+          <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title | escape }}" width="600" height="300" style="width: 100%; height: 200px; object-fit: cover;">
+        {% endif %}
+        <div style="padding: 20px;">
+          <h2 style="font-size: 18px; margin-bottom: 8px;"><a href="{{ article.url }}" style="color: #fff;">{{ article.title }}</a></h2>
+          <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">{{ article.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+          <a href="{{ article.url }}" style="color: var(--primary); font-size: 14px; font-weight: 600;">Read More &rarr;</a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": []
+}
+{% endschema %}

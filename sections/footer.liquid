@@ -1,0 +1,197 @@
+<footer id="site-footer">
+  <!-- Trust Badges Row -->
+  <div class="footer-trust">
+    <div class="trust-item">
+      <i class="fas fa-truck-fast"></i>
+      <div>
+        <strong>Free Shipping</strong>
+        <span>Over $60</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-shield-halved"></i>
+      <div>
+        <strong>100% Authentic</strong>
+        <span>Verified Products</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-bolt"></i>
+      <div>
+        <strong>Same Day Dispatch</strong>
+        <span>Before 3:45pm</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-headset"></i>
+      <div>
+        <strong>Expert Support</strong>
+        <span>0800 000 891</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-star"></i>
+      <div>
+        <strong>5 Star Rated</strong>
+        <span>10,000+ Reviews</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Footer Grid -->
+  <div class="footer-top">
+    <!-- Brand Column -->
+    <div class="footer-brand">
+      <div>
+        {% if settings.logo %}
+          <img src="{{ settings.logo | image_url: width: 160 }}" alt="{{ shop.name }}" style="height:40px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1)">
+        {% else %}
+          <span class="logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </div>
+      <p>{{ section.settings.brand_description }}</p>
+      <div class="footer-social">
+        {% if section.settings.facebook_url != blank %}
+          <a href="{{ section.settings.facebook_url }}" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        {% else %}
+          <a href="https://facebook.com" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        {% endif %}
+        {% if section.settings.instagram_url != blank %}
+          <a href="{{ section.settings.instagram_url }}" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        {% else %}
+          <a href="https://instagram.com" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        {% endif %}
+        <a href="https://youtube.com" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://tiktok.com" class="social-link" target="_blank" rel="noopener" aria-label="TikTok">
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Shop Column -->
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="/collections/protein-powder"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Protein Powder</a></li>
+        <li><a href="/collections/creatine"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Creatine</a></li>
+        <li><a href="/collections/pre-workout"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Pre Workout</a></li>
+        <li><a href="/collections/protein-bars"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Protein Bars</a></li>
+        <li><a href="/collections/vitamins"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Vitamins</a></li>
+        <li><a href="/collections/weight-loss"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Weight Loss</a></li>
+        <li><a href="/collections/accessories"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Accessories</a></li>
+        <li><a href="/collections/specials" style="color:var(--red-sale)"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--red-sale)"></i> Special Offers</a></li>
+      </ul>
+    </div>
+
+    <!-- Customer Service Column -->
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="/pages/shipping"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Shipping Info</a></li>
+        <li><a href="/pages/returns"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Returns Policy</a></li>
+        <li><a href="/pages/faq"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> FAQ</a></li>
+        <li><a href="/pages/contact"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Contact Us</a></li>
+        <li><a href="/account"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> My Account</a></li>
+        <li><a href="/account/orders"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Track Order</a></li>
+        <li><a href="/pages/privacy-policy"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Privacy Policy</a></li>
+        <li><a href="/pages/terms"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+
+    <!-- About Column -->
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="/pages/about-us"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> About Us</a></li>
+        <li><a href="/blogs/news"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Articles &amp; Tips</a></li>
+        <li><a href="/pages/our-story"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Our Story</a></li>
+        <li><a href="/products/brands"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Shop By Brand</a></li>
+        <li><a href="/pages/affiliate"><i class="fas fa-chevron-right" style="font-size:9px;color:var(--primary)"></i> Affiliate Program</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter Column -->
+    <div class="footer-newsletter">
+      <h4>Stay Updated</h4>
+      <p>Get exclusive deals, new product alerts, and fitness tips delivered to your inbox.</p>
+      {% form 'customer', class: 'newsletter-form', id: 'footerNewsletterForm' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="Your email address"
+          required
+          autocomplete="email"
+        >
+        <button type="submit">
+          Subscribe <i class="fas fa-arrow-right"></i>
+        </button>
+      {% endform %}
+      <p style="font-size:11px;color:var(--text-muted);margin-top:10px;">
+        By subscribing you agree to our Privacy Policy. Unsubscribe anytime.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer Bottom Bar -->
+  <div class="footer-bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <div class="payment-icons">
+      <span class="payment-icon">VISA</span>
+      <span class="payment-icon">MC</span>
+      <span class="payment-icon">AMEX</span>
+      <span class="payment-icon">Afterpay</span>
+      <span class="payment-icon">PayPal</span>
+      <span class="payment-icon" style="display:flex;align-items:center;gap:4px;">
+        <i class="fab fa-apple" style="font-size:14px"></i> Pay
+      </span>
+      <span class="payment-icon" style="display:flex;align-items:center;gap:4px;">
+        <i class="fab fa-google" style="font-size:11px"></i> Pay
+      </span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand Description",
+      "default": "New Zealand online sports supplements store. Premium nutrition products at the best prices with fast, free shipping NZ wide."
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    }
+  ]
+}
+{% endschema %}
