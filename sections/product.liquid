@@ -61,17 +61,17 @@
             <span class="rating-count">({{ product.id | modulo: 89 | plus: 24 }} reviews)</span>
           </div>
           {%- if product.available -%}
-            <span class="stock-badge in-stock">In Stock</span>
+            <span class="stock-badge in-stock" id="productStockBadge">In Stock</span>
           {%- else -%}
-            <span class="stock-badge out-of-stock">Out of Stock</span>
+            <span class="stock-badge out-of-stock" id="productStockBadge">Out of Stock</span>
           {%- endif -%}
         </div>
 
         <div class="product-price-wrap">
           <span class="product-price-main" id="productPrice">{{ product.price | money }}</span>
-          {%- if product.compare_at_price > product.price -%}
-            <span class="product-price-compare">{{ product.compare_at_price | money }}</span>
-          {%- endif -%}
+          <span class="product-price-compare" id="productComparePrice"{% unless product.compare_at_price > product.price %} style="display:none;"{% endunless %}>
+            {%- if product.compare_at_price > product.price -%}{{ product.compare_at_price | money }}{%- endif -%}
+          </span>
           <span class="price-currency">NZD incl. GST</span>
         </div>
 
@@ -85,6 +85,7 @@
               <div class="variant-options">
                 {%- for value in option.values -%}
                   <button
+                    type="button"
                     class="variant-btn {%- if option.selected_value == value -%} active{%- endif -%}"
                     data-option="{{ option.position }}"
                     data-value="{{ value | escape }}"
@@ -100,11 +101,12 @@
 
         <div class="atc-row">
           <div class="qty-wrap">
-            <button class="qty-change" data-dir="-1" aria-label="Decrease quantity">&#8722;</button>
+            <button type="button" class="qty-change" data-dir="-1" aria-label="Decrease quantity">&#8722;</button>
             <input type="number" id="productQty" value="1" min="1" max="99" aria-label="Quantity">
-            <button class="qty-change" data-dir="1" aria-label="Increase quantity">&#43;</button>
+            <button type="button" class="qty-change" data-dir="1" aria-label="Increase quantity">&#43;</button>
           </div>
           <button
+            type="button"
             id="addToCartBtn"
             class="btn-primary atc-btn"
             data-variant-id="{{ product.selected_or_first_available_variant.id }}"
@@ -118,11 +120,14 @@
           </button>
         </div>
 
-        {%- if product.available -%}
-          <a href="{{ routes.cart_url }}" class="btn-outline buy-now-btn">
-            <i class="fas fa-bolt"></i> Buy Now
-          </a>
-        {%- endif -%}
+        <button
+          type="button"
+          id="buyNowBtn"
+          class="btn-outline buy-now-btn"
+          {%- unless product.available -%} style="display:none;"{%- endunless -%}
+        >
+          <i class="fas fa-bolt"></i> Buy Now
+        </button>
 
         <div class="product-trust-grid">
           <div class="product-trust-item">
@@ -244,6 +249,84 @@
       });
     });
 
+    function formatMoney(cents) {
+      return '$' + (cents / 100).toFixed(2);
+    }
+
+    function updateSelectedVariant() {
+      if (!window.__variantData || !window.__variantData.length) return;
+      var selectedOptions = {};
+      document.querySelectorAll('.variant-btn.active').forEach(function(btn) {
+        selectedOptions['option' + btn.dataset.option] = btn.dataset.value;
+      });
+
+      var matchedVariant = window.__variantData.find(function(v) {
+        var match = true;
+        if (selectedOptions.option1 && v.option1 !== selectedOptions.option1) match = false;
+        if (selectedOptions.option2 && v.option2 !== selectedOptions.option2) match = false;
+        if (selectedOptions.option3 && v.option3 !== selectedOptions.option3) match = false;
+        return match;
+      });
+
+      if (!matchedVariant && window.__variantData.length > 0) {
+        matchedVariant = window.__variantData[0];
+      }
+
+      if (matchedVariant) {
+        var priceEl = document.getElementById('productPrice');
+        if (priceEl) priceEl.textContent = formatMoney(matchedVariant.price);
+
+        var compEl = document.getElementById('productComparePrice');
+        if (compEl) {
+          if (matchedVariant.compare_at_price && matchedVariant.compare_at_price > matchedVariant.price) {
+            compEl.textContent = formatMoney(matchedVariant.compare_at_price);
+            compEl.style.display = '';
+          } else {
+            compEl.style.display = 'none';
+          }
+        }
+
+        var stockBadge = document.getElementById('productStockBadge');
+        var atc = document.getElementById('addToCartBtn');
+        var buy = document.getElementById('buyNowBtn');
+
+        if (atc) atc.dataset.variantId = matchedVariant.id;
+
+        if (matchedVariant.available) {
+          if (stockBadge) {
+            stockBadge.className = 'stock-badge in-stock';
+            stockBadge.textContent = 'In Stock';
+          }
+          if (atc) {
+            atc.disabled = false;
+            atc.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+          }
+          if (buy) buy.style.display = '';
+        } else {
+          if (stockBadge) {
+            stockBadge.className = 'stock-badge out-of-stock';
+            stockBadge.textContent = 'Out of Stock';
+          }
+          if (atc) {
+            atc.disabled = true;
+            atc.innerHTML = 'Sold Out';
+          }
+          if (buy) buy.style.display = 'none';
+        }
+
+        if (matchedVariant.featured_image && matchedVariant.featured_image.src) {
+          var mainImg = document.getElementById('mainProductImg');
+          if (mainImg) mainImg.src = matchedVariant.featured_image.src;
+          document.querySelectorAll('.thumb-btn').forEach(function(t) {
+            if (t.dataset.src && t.dataset.src.indexOf(matchedVariant.featured_image.src) !== -1) {
+              document.querySelectorAll('.thumb-btn').forEach(function(b) { b.classList.remove('active'); });
+              t.classList.add('active');
+            }
+          });
+        }
+      }
+    }
+
     document.querySelectorAll('.variant-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var pos = this.dataset.option;
@@ -251,6 +334,7 @@
         this.classList.add('active');
         var selEl = document.getElementById('sel-' + pos);
         if (selEl) selEl.textContent = this.dataset.value;
+        updateSelectedVariant();
       });
     });
 
@@ -302,6 +386,30 @@
         .catch(function() {
           self.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
           self.disabled = false;
+        });
+      });
+    }
+
+    var buyBtn = document.getElementById('buyNowBtn');
+    if (buyBtn) {
+      buyBtn.addEventListener('click', function() {
+        var atc = document.getElementById('addToCartBtn');
+        var variantId = atc ? atc.dataset.variantId : null;
+        var qty = parseInt(document.getElementById('productQty').value) || 1;
+        if (!variantId) return;
+        var self = this;
+        self.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        self.disabled = true;
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: parseInt(variantId), quantity: qty })
+        })
+        .then(function() {
+          window.location.href = '/checkout';
+        })
+        .catch(function() {
+          window.location.href = '/cart';
         });
       });
     }
